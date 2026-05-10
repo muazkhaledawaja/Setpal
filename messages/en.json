@@ -1,0 +1,32 @@
+{
+  "common": {
+    "appName": "Setpal",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full name",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "or": "or"
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in to your Setpal account",
+    "registerTitle": "Create your account",
+    "registerSubtitle": "Start coaching or training with Setpal",
+    "iAmA": "I am a",
+    "coach": "Coach",
+    "client": "Client",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "createAccount": "Create account",
+    "checkEmail": "Check your email to confirm your account"
+  },
+  "errors": {
+    "invalidCredentials": "Invalid email or password",
+    "emailInUse": "Email already registered",
+    "generic": "Something went wrong"
+  }
+}
