@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(Get-Content \"C:\\\\Users\\\\ELITE-~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\e--Setpal-setpal\\\\7ce03f0e-8542-43a0-82ca-6d37bcab65d2\\\\tasks\\\\bcbfuuib8.output\" -Wait)"
-    ]
-  }
-}

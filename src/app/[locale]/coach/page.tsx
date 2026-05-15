@@ -1,26 +1,93 @@
+import { getTranslations } from "next-intl/server";
+import { Users, ClipboardCheck, CreditCard } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { requireRole } from "@/lib/auth/require-role";
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "@/i18n/routing";
-import { LogoutButton } from "@/components/logout-button";
 
-export default async function CoachHome() {
+function daysUntil(dateStr: string | null): number | null {
+  if (!dateStr) return null;
+  const diff = new Date(dateStr).getTime() - Date.now();
+  return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+}
+
+export default async function CoachDashboardPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations("coach");
+
+  const { userId, coachData } = await requireRole(locale, "coach");
+
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect({ href: "/login", locale: "ar" });
 
-  const { data: profile } = await supabase.from("profiles").select("*").eq("id", user!.id).single();
+  const [{ count: activeClients }] = await Promise.all([
+    supabase
+      .from("clients")
+      .select("*", { count: "exact", head: true })
+      .eq("coach_id", userId)
+      .eq("status", "active"),
+  ]);
+
+  const pendingCheckIns = 0;
+
+  const trialDaysLeft = daysUntil(coachData?.trial_ends_at ?? null);
+  const tier = coachData?.subscription_tier ?? "trial";
+
+  const subscriptionLabel =
+    tier === "trial" && trialDaysLeft !== null
+      ? t("subscription.trial", { days: trialDaysLeft })
+      : t(`subscription.${tier}`);
 
   return (
-    <main className="min-h-screen p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <header className="flex items-center justify-between">
-          <h1 className="text-3xl">Coach Dashboard</h1>
-          <LogoutButton />
-        </header>
-        <div className="bg-card border border-border rounded-lg p-6">
-          <p>Welcome, {profile?.full_name || "Coach"}</p>
-          <p className="text-sm text-muted-foreground mt-2">Role: {profile?.role}</p>
-        </div>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-serif font-semibold text-foreground">
+          {t("dashboard.title")}
+        </h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          {t("dashboard.subtitle")}
+        </p>
       </div>
-    </main>
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              {t("stats.activeClients")}
+            </CardTitle>
+            <Users className="size-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{activeClients ?? 0}</div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              {t("stats.pendingCheckIns")}
+            </CardTitle>
+            <ClipboardCheck className="size-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{pendingCheckIns ?? 0}</div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              {t("stats.subscription")}
+            </CardTitle>
+            <CreditCard className="size-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-lg font-semibold">{subscriptionLabel}</div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }

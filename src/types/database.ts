@@ -60,6 +60,23 @@ export type Database = {
         };
         Update: Partial<Database["public"]["Tables"]["clients"]["Row"]>;
       };
+      client_invites: {
+        Row: {
+          id: string;
+          coach_id: string;
+          email: string;
+          token: string;
+          status: "pending" | "accepted" | "expired";
+          expires_at: string;
+          accepted_at: string | null;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["client_invites"]["Row"]> & {
+          coach_id: string;
+          email: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["client_invites"]["Row"]>;
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

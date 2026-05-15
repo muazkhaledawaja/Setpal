@@ -9,7 +9,9 @@
     "fullName": "Full name",
     "submit": "Submit",
     "loading": "Loading...",
-    "or": "or"
+    "or": "or",
+    "genericError": "Something went wrong",
+    "emailInUse": "Email already registered"
   },
   "auth": {
     "loginTitle": "Welcome back",
@@ -28,5 +30,85 @@
     "invalidCredentials": "Invalid email or password",
     "emailInUse": "Email already registered",
     "generic": "Something went wrong"
+  },
+  "coach": {
+    "appName": "Setpal",
+    "coach": "Coach",
+    "nav": {
+      "dashboard": "Dashboard",
+      "clients": "Clients",
+      "library": "Library",
+      "forms": "Forms",
+      "settings": "Settings"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Welcome back — here's a snapshot of your workspace."
+    },
+    "stats": {
+      "activeClients": "Active Clients",
+      "pendingCheckIns": "Pending Check-ins",
+      "subscription": "Subscription"
+    },
+    "subscription": {
+      "trial": "Trial — {days} days left",
+      "starter": "Starter",
+      "pro": "Pro",
+      "elite": "Elite"
+    },
+    "clients": {
+      "title": "Clients",
+      "subtitle": "{count} total",
+      "invite": "Invite Client",
+      "backToClients": "Back to Clients",
+      "empty": {
+        "title": "No clients yet",
+        "subtitle": "Invite your first client to get started."
+      },
+      "table": {
+        "name": "Name",
+        "email": "Email",
+        "status": "Status",
+        "startDate": "Start Date",
+        "view": "View"
+      },
+      "status": {
+        "active": "Active",
+        "paused": "Paused",
+        "ended": "Ended"
+      },
+      "invitePage": {
+        "title": "Invite a Client",
+        "subtitle": "Send an invite link to your client's email address.",
+        "send": "Send Invite",
+        "sent": {
+          "title": "Invite created",
+          "subtitle": "Share this link with your client.",
+          "linkLabel": "Invite link",
+          "expiry": "This link expires in 7 days.",
+          "inviteAnother": "Invite another client"
+        }
+      },
+      "errors": {
+        "limitReached": "You've reached your client limit. Upgrade your plan to add more.",
+        "alreadyInvited": "A pending invite already exists for this email address."
+      },
+      "detail": {
+        "joinedOn": "Joined {date}",
+        "statusManagement": "Status",
+        "tabs": {
+          "overview": "Overview",
+          "forms": "Forms",
+          "progress": "Progress",
+          "plans": "Plans"
+        }
+      }
+    }
+  },
+  "invite": {
+    "title": "You've been invited",
+    "subtitle": "Create your account to join your coach. Your email: {email}",
+    "createAccount": "Create Account",
+    "invalidToken": "This invite link is invalid or has expired."
   }
 }
