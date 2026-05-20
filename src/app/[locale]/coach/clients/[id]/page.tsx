@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { requireRole } from "@/lib/auth/require-role";
 import { createClient } from "@/lib/supabase/server";
 import { ClientsService } from "@/modules/clients/clients.service";
+import { WorkoutsService } from "@/modules/workouts/workouts.service";
 import { ClientTabs } from "./client-tabs";
 
 const STATUS_STYLES = {
@@ -28,6 +29,8 @@ export default async function ClientDetailPage({
   const client = await service.getById(id);
 
   if (!client) notFound();
+
+  const assignedPlans = await new WorkoutsService(supabase).listForClient(id);
 
   const initials = client.profile?.full_name
     ? client.profile.full_name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
@@ -72,7 +75,7 @@ export default async function ClientDetailPage({
         </div>
       </div>
 
-      <ClientTabs clientId={id} locale={locale} status={client.status} />
+      <ClientTabs clientId={id} locale={locale} status={client.status} assignedPlans={assignedPlans} />
     </div>
   );
 }

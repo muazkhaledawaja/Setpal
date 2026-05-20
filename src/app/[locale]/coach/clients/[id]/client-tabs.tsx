@@ -4,8 +4,11 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 import { LayoutDashboard, ClipboardList, TrendingUp, Dumbbell } from "lucide-react";
+import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import type { PlanRow } from "@/modules/workouts/workouts.types";
 
 type Status = "active" | "paused" | "ended";
 
@@ -22,10 +25,12 @@ interface ClientTabsProps {
   clientId: string;
   locale: string;
   status: Status;
+  assignedPlans: PlanRow[];
 }
 
-export function ClientTabs({ clientId, locale, status }: ClientTabsProps) {
+export function ClientTabs({ clientId, locale, status, assignedPlans }: ClientTabsProps) {
   const t = useTranslations("coach");
+  const tWorkouts = useTranslations("workouts");
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabKey>("overview");
   const [updatingStatus, setUpdatingStatus] = useState(false);
@@ -94,7 +99,22 @@ export function ClientTabs({ clientId, locale, status }: ClientTabsProps) {
           <Placeholder label={t("clients.detail.tabs.progress")} />
         )}
         {activeTab === "plans" && (
-          <Placeholder label={t("clients.detail.tabs.plans")} />
+          <div className="space-y-4">
+            <Button asChild>
+              <Link href={`/coach/workouts/new?client=${clientId}`}>{tWorkouts("newPlan")}</Link>
+            </Button>
+            {assignedPlans.length === 0 ? (
+              <p className="text-muted-foreground text-sm">{tWorkouts("empty")}</p>
+            ) : (
+              <div className="space-y-2">
+                {assignedPlans.map((p) => (
+                  <Card key={p.id} className="p-3">
+                    <p className="font-medium">{p.name}</p>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>
