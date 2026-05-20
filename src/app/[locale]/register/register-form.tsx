@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 import { createClient } from "@/lib/supabase/browser";
+import type { z } from "zod";
 import { RegisterSchema, type RegisterInput } from "@/modules/auth/auth.schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,7 +25,7 @@ export function RegisterForm({ locale }: { locale: string }) {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<RegisterInput>({
+  } = useForm<z.input<typeof RegisterSchema>, unknown, RegisterInput>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
       role: "coach",

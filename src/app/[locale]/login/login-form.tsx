@@ -34,11 +34,11 @@ export function LoginForm() {
     }
 
     // Fetch role to redirect to the right dashboard
-    const { data: profile } = await supabase
+    const { data: profile } = (await supabase
       .from("profiles")
       .select("role")
       .eq("id", data.user.id)
-      .single();
+      .single()) as { data: { role: "admin" | "coach" | "client" } | null };
 
     const target = profile?.role === "admin"
       ? "/admin"
