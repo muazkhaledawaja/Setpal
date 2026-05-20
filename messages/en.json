@@ -105,6 +105,122 @@
       }
     }
   },
+  "client": {
+    "appName": "Setpal",
+    "nav": {
+      "overview": "Overview",
+      "plans": "Plans",
+      "workoutLogs": "Workout Logs",
+      "forms": "Forms",
+      "settings": "Settings"
+    },
+    "overview": {
+      "welcome": "Welcome back, {name}!",
+      "portal": "Client Portal",
+      "activeWorkoutPlans": "Workout Plans",
+      "pendingForms": "Pending Forms",
+      "recentActivity": "Recent Activity",
+      "noActivity": "No recent activity yet.",
+      "planAssigned": "Workout plan assigned",
+      "viewPlans": "View Plans"
+    },
+    "plans": {
+      "title": "Your Active Plans",
+      "subtitle": "View your active workout plans",
+      "workoutTab": "Workout Plans",
+      "empty": "No active plans yet. Your coach will assign one soon.",
+      "viewDetails": "View Details",
+      "created": "Created",
+      "active": "Active"
+    },
+    "planView": {
+      "exercises": "exercises",
+      "sets": "Sets",
+      "reps": "Reps",
+      "rest": "Rest",
+      "watchVideo": "Watch Video",
+      "startWorkout": "Start Workout",
+      "restDay": "Rest Day",
+      "notes": "Notes"
+    },
+    "session": {
+      "title": "Logging: {day}",
+      "set": "Set",
+      "reps": "Reps",
+      "weight": "Weight (kg)",
+      "markDone": "Done",
+      "finish": "Finish Workout",
+      "finished": "Workout saved!",
+      "saving": "Saving..."
+    },
+    "logs": {
+      "title": "Workout Logs",
+      "subtitle": "View your complete workout history.",
+      "empty": "No workout sessions logged yet.",
+      "completed": "Completed",
+      "inProgress": "In Progress",
+      "exercises": "exercises",
+      "duration": "Duration",
+      "set": "Set",
+      "reps": "reps",
+      "weight": "kg"
+    }
+  },
+  "library": {
+    "title": "Exercise Library",
+    "subtitle": "Browse exercises and add your own.",
+    "search": "Search exercises...",
+    "allGroups": "All muscle groups",
+    "addCustom": "Add Exercise",
+    "edit": "Edit",
+    "delete": "Delete",
+    "global": "Global",
+    "custom": "Custom",
+    "form": {
+      "nameEn": "Name (English)",
+      "nameAr": "Name (Arabic)",
+      "muscleGroup": "Muscle Group",
+      "equipment": "Equipment",
+      "videoUrl": "Video URL",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "groups": {
+      "chest": "Chest",
+      "back": "Back",
+      "shoulders": "Shoulders",
+      "legs": "Legs",
+      "arms": "Arms",
+      "core": "Core",
+      "full_body": "Full Body",
+      "cardio": "Cardio"
+    }
+  },
+  "workouts": {
+    "title": "Workout Plans",
+    "subtitle": "Build and assign workout programs.",
+    "newPlan": "New Plan",
+    "empty": "No workout plans yet.",
+    "builder": {
+      "planName": "Plan Name",
+      "descriptionEn": "Description (English)",
+      "descriptionAr": "Description (Arabic)",
+      "addDay": "Add Day",
+      "dayName": "Day Name",
+      "restDay": "Rest Day",
+      "addExercise": "Add Exercise",
+      "sets": "Sets",
+      "reps": "Reps",
+      "rest": "Rest (sec)",
+      "notes": "Notes",
+      "remove": "Remove",
+      "save": "Save Plan",
+      "saved": "Plan saved!",
+      "assignTo": "Assign to client"
+    },
+    "assignedTo": "Assigned to",
+    "unassigned": "Template (unassigned)"
+  },
   "invite": {
     "title": "You've been invited",
     "subtitle": "Create your account to join your coach. Your email: {email}",
