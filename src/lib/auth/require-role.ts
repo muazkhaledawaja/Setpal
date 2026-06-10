@@ -11,6 +11,7 @@ export async function requireRole(
   userId: string;
   profile: Database["public"]["Tables"]["profiles"]["Row"];
   coachData: Database["public"]["Tables"]["coaches"]["Row"] | null;
+  clientData: Database["public"]["Tables"]["clients"]["Row"] | null;
 }> {
   const supabase = await createClient();
 
@@ -51,5 +52,15 @@ export async function requireRole(
     coachData = data;
   }
 
-  return { userId: user.id, profile, coachData };
+  let clientData: Database["public"]["Tables"]["clients"]["Row"] | null = null;
+  if (requiredRole === "client") {
+    const { data } = (await supabase
+      .from("clients")
+      .select("*")
+      .eq("id", user.id)
+      .single()) as { data: Database["public"]["Tables"]["clients"]["Row"] | null; error: unknown };
+    clientData = data;
+  }
+
+  return { userId: user.id, profile, coachData, clientData };
 }

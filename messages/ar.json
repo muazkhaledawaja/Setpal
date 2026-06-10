@@ -105,6 +105,122 @@
       }
     }
   },
+  "client": {
+    "appName": "Setpal",
+    "nav": {
+      "overview": "نظرة عامة",
+      "plans": "الخطط",
+      "workoutLogs": "سجلات التمارين",
+      "forms": "النماذج",
+      "settings": "الإعدادات"
+    },
+    "overview": {
+      "welcome": "مرحباً بعودتك، {name}!",
+      "portal": "بوابة العميل",
+      "activeWorkoutPlans": "خطط التمرين",
+      "pendingForms": "النماذج المعلقة",
+      "recentActivity": "الأنشطة الأخيرة",
+      "noActivity": "لا توجد أنشطة حتى الآن.",
+      "planAssigned": "تم تعيين خطة تمرين",
+      "viewPlans": "عرض الخطط"
+    },
+    "plans": {
+      "title": "خططك النشطة",
+      "subtitle": "اعرض خطط التمرين النشطة لديك",
+      "workoutTab": "خطط التمرين",
+      "empty": "لا توجد خطط نشطة بعد. سيقوم مدربك بتعيين واحدة قريباً.",
+      "viewDetails": "عرض التفاصيل",
+      "created": "تم الإنشاء",
+      "active": "نشط"
+    },
+    "planView": {
+      "exercises": "تمارين",
+      "sets": "المجموعات",
+      "reps": "التكرارات",
+      "rest": "الراحة",
+      "watchVideo": "مشاهدة الفيديو",
+      "startWorkout": "ابدأ التمرين",
+      "restDay": "يوم راحة",
+      "notes": "ملاحظات"
+    },
+    "session": {
+      "title": "تسجيل: {day}",
+      "set": "مجموعة",
+      "reps": "تكرارات",
+      "weight": "الوزن (كجم)",
+      "markDone": "تم",
+      "finish": "إنهاء التمرين",
+      "finished": "تم حفظ التمرين!",
+      "saving": "جارٍ الحفظ..."
+    },
+    "logs": {
+      "title": "سجلات التمارين",
+      "subtitle": "اعرض سجل تمارينك الكامل.",
+      "empty": "لم يتم تسجيل أي جلسات تمرين بعد.",
+      "completed": "مكتمل",
+      "inProgress": "قيد التنفيذ",
+      "exercises": "تمارين",
+      "duration": "المدة",
+      "set": "مجموعة",
+      "reps": "تكرار",
+      "weight": "كجم"
+    }
+  },
+  "library": {
+    "title": "مكتبة التمارين",
+    "subtitle": "تصفح التمارين وأضف تمارينك الخاصة.",
+    "search": "ابحث عن التمارين...",
+    "allGroups": "كل المجموعات العضلية",
+    "addCustom": "إضافة تمرين",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "global": "عام",
+    "custom": "خاص",
+    "form": {
+      "nameEn": "الاسم (إنجليزي)",
+      "nameAr": "الاسم (عربي)",
+      "muscleGroup": "المجموعة العضلية",
+      "equipment": "المعدات",
+      "videoUrl": "رابط الفيديو",
+      "save": "حفظ",
+      "cancel": "إلغاء"
+    },
+    "groups": {
+      "chest": "صدر",
+      "back": "ظهر",
+      "shoulders": "أكتاف",
+      "legs": "أرجل",
+      "arms": "ذراعين",
+      "core": "بطن",
+      "full_body": "الجسم كامل",
+      "cardio": "كارديو"
+    }
+  },
+  "workouts": {
+    "title": "خطط التمرين",
+    "subtitle": "أنشئ وعيّن برامج التمرين.",
+    "newPlan": "خطة جديدة",
+    "empty": "لا توجد خطط تمرين بعد.",
+    "builder": {
+      "planName": "اسم الخطة",
+      "descriptionEn": "الوصف (إنجليزي)",
+      "descriptionAr": "الوصف (عربي)",
+      "addDay": "إضافة يوم",
+      "dayName": "اسم اليوم",
+      "restDay": "يوم راحة",
+      "addExercise": "إضافة تمرين",
+      "sets": "المجموعات",
+      "reps": "التكرارات",
+      "rest": "الراحة (ثانية)",
+      "notes": "ملاحظات",
+      "remove": "إزالة",
+      "save": "حفظ الخطة",
+      "saved": "تم حفظ الخطة!",
+      "assignTo": "تعيين لعميل"
+    },
+    "assignedTo": "معيّن إلى",
+    "unassigned": "قالب (غير معيّن)"
+  },
   "invite": {
     "title": "تمت دعوتك",
     "subtitle": "أنشئ حسابك للانضمام إلى مدربك. بريدك الإلكتروني: {email}",

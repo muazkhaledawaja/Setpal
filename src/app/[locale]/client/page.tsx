@@ -1,26 +1,61 @@
+import { requireRole } from "@/lib/auth/require-role";
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "@/i18n/routing";
-import { LogoutButton } from "@/components/logout-button";
+import { WorkoutsService } from "@/modules/workouts/workouts.service";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/routing";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Dumbbell, ClipboardList } from "lucide-react";
 
-export default async function ClientHome() {
+export default async function ClientOverview({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const { userId, profile } = await requireRole(locale, "client");
+  const t = await getTranslations("client.overview");
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect({ href: "/login", locale: "ar" });
-
-  const { data: profile } = await supabase.from("profiles").select("*").eq("id", user!.id).single();
+  const plans = await new WorkoutsService(supabase).listForClient(userId);
 
   return (
-    <main className="min-h-screen p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <header className="flex items-center justify-between">
-          <h1 className="text-3xl">Client Dashboard</h1>
-          <LogoutButton />
-        </header>
-        <div className="bg-card border border-border rounded-lg p-6">
-          <p>Welcome, {profile?.full_name || "Client"}</p>
-          <p className="text-sm text-muted-foreground mt-2">Role: {profile?.role}</p>
-        </div>
+    <div className="p-4 sm:p-6 space-y-6 max-w-4xl mx-auto">
+      <div>
+        <h1 className="text-2xl">{t("welcome", { name: profile.full_name ?? "" })}</h1>
+        <p className="text-sm text-muted-foreground">{t("portal")}</p>
       </div>
-    </main>
+
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-3">
+        <Card className="p-5">
+          <Dumbbell className="size-5 text-primary mb-2" />
+          <p className="text-sm text-muted-foreground">{t("activeWorkoutPlans")}</p>
+          <p className="text-3xl font-semibold">{plans.length}</p>
+          <Button asChild variant="link" className="px-0 mt-1">
+            <Link href="/client/plans">{t("viewPlans")}</Link>
+          </Button>
+        </Card>
+        <Card className="p-5">
+          <ClipboardList className="size-5 text-warning mb-2" />
+          <p className="text-sm text-muted-foreground">{t("pendingForms")}</p>
+          <p className="text-3xl font-semibold">0</p>
+        </Card>
+      </div>
+
+      <div>
+        <h2 className="text-lg mb-3">{t("recentActivity")}</h2>
+        {plans.length === 0 ? (
+          <p className="text-muted-foreground text-sm">{t("noActivity")}</p>
+        ) : (
+          <div className="space-y-2">
+            {plans.slice(0, 5).map((p) => (
+              <Card key={p.id} className="p-3">
+                <p className="font-medium">{p.name}</p>
+                <p className="text-xs text-muted-foreground">{t("planAssigned")}</p>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
