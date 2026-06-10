@@ -24,7 +24,20 @@
     "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
     "createAccount": "Create account",
-    "checkEmail": "Check your email to confirm your account"
+    "checkEmail": "Check your email to confirm your account",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordTitle": "Reset your password",
+    "forgotPasswordSubtitle": "Enter your email and we'll send you a reset link",
+    "sendResetLink": "Send reset link",
+    "resetEmailSent": "If an account exists for that email, a reset link is on its way. Check your inbox.",
+    "backToLogin": "Back to sign in",
+    "resetPasswordTitle": "Choose a new password",
+    "resetPasswordSubtitle": "Enter your new password below",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "updatePassword": "Update password",
+    "passwordUpdated": "Your password has been updated",
+    "resetLinkInvalid": "This reset link is invalid or has expired. Please request a new one."
   },
   "errors": {
     "invalidCredentials": "Invalid email or password",

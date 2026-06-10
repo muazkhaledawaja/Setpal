@@ -24,7 +24,20 @@
     "noAccount": "ليس لديك حساب؟",
     "hasAccount": "لديك حساب بالفعل؟",
     "createAccount": "إنشاء حساب",
-    "checkEmail": "تحقق من بريدك الإلكتروني لتأكيد حسابك"
+    "checkEmail": "تحقق من بريدك الإلكتروني لتأكيد حسابك",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "forgotPasswordTitle": "إعادة تعيين كلمة المرور",
+    "forgotPasswordSubtitle": "أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة التعيين",
+    "sendResetLink": "إرسال رابط إعادة التعيين",
+    "resetEmailSent": "إذا كان هناك حساب مرتبط بهذا البريد، فسيصلك رابط إعادة التعيين. تحقق من بريدك الوارد.",
+    "backToLogin": "العودة لتسجيل الدخول",
+    "resetPasswordTitle": "اختر كلمة مرور جديدة",
+    "resetPasswordSubtitle": "أدخل كلمة المرور الجديدة أدناه",
+    "newPassword": "كلمة المرور الجديدة",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "updatePassword": "تحديث كلمة المرور",
+    "passwordUpdated": "تم تحديث كلمة المرور بنجاح",
+    "resetLinkInvalid": "رابط إعادة التعيين غير صالح أو منتهي الصلاحية. يرجى طلب رابط جديد."
   },
   "errors": {
     "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
