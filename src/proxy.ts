@@ -6,7 +6,7 @@ import { updateSession } from "@/lib/supabase/middleware";
 const intlMiddleware = createIntlMiddleware(routing);
 
 const PROTECTED_PREFIXES = ["/coach", "/client", "/admin"];
-const PUBLIC_AUTH_PATHS = ["/login", "/register"];
+const PUBLIC_AUTH_PATHS = ["/login", "/register", "/forgot-password"];
 
 function stripLocale(pathname: string): string {
   for (const loc of routing.locales) {

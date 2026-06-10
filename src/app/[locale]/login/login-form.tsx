@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 import { createClient } from "@/lib/supabase/browser";
 import { LoginSchema, type LoginInput } from "@/modules/auth/auth.schemas";
 import { Button } from "@/components/ui/button";
@@ -62,6 +62,12 @@ export function LoginForm() {
         <Label htmlFor="password">{t("common.password")}</Label>
         <Input id="password" type="password" autoComplete="current-password" {...register("password")} />
         {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
+      </div>
+
+      <div className="text-end">
+        <Link href="/forgot-password" className="text-sm text-primary hover:underline">
+          {t("auth.forgotPassword")}
+        </Link>
       </div>
 
       {serverError && <p className="text-sm text-destructive">{serverError}</p>}
