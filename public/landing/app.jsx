@@ -24,7 +24,7 @@ function Nav({ c, lang, setLang }) {
   return (
     <header className="lp-nav">
       <div className="lp-nav-inner">
-        <div className="lp-logo">Setpal</div>
+        <img src="/landing/setpal-logo.svg" alt="Setpal" className="lp-logo-img" style={{height:"36px",width:"auto"}} />
         <nav className="lp-nav-links">
           <a href="#features">{c.nav.features}</a>
           <a href="#how">{c.nav.how}</a>
@@ -66,7 +66,7 @@ function AppMock({ c, lang }) {
       </div>
       <div className="lp-mock-body">
         <aside className="lp-mock-side">
-          <div className="lp-mock-brand">Setpal</div>
+          <img src="/landing/setpal-mark.svg" alt="Setpal" style={{width:"28px",height:"28px"}} />
           {["layout-dashboard", "users", "dumbbell", "clipboard-list"].map((ic, i) => (
             <div key={ic} className={"lp-mock-nav" + (i === 0 ? " on" : "")}><Icon name={ic} size={15} /></div>
           ))}
@@ -238,7 +238,7 @@ function Footer({ c }) {
         <a href="#" className="lp-btn lp-btn-primary lp-btn-lg">{c.footer.cta}</a>
       </div>
       <div className="lp-footer-bottom">
-        <div className="lp-logo">Setpal</div>
+        <img src="/landing/setpal-logo.svg" alt="Setpal" className="lp-logo-img" style={{height:"28px",width:"auto"}} />
         <div className="lp-footer-copy">{c.footer.copyright}</div>
       </div>
     </footer>
