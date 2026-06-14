@@ -179,6 +179,163 @@
       "weight": "كجم"
     }
   },
+  "forms": {
+    "title": "النماذج",
+    "subtitle": "أنشئ نماذج مخصصة لعملائك.",
+    "newForm": "نموذج جديد",
+    "empty": "لا توجد نماذج بعد. أنشئ نموذجك الأول لبدء جمع البيانات.",
+    "name": "الاسم",
+    "type": "النوع",
+    "questions": "الأسئلة",
+    "assignments": "التعيينات",
+    "completion": "الإنجاز",
+    "actions": "إجراءات",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "duplicate": "نسخ",
+    "preview": "معاينة",
+    "assign": "تعيين للعملاء",
+    "responses": "الردود",
+    "back": "العودة إلى النماذج",
+    "typeLabels": {
+      "onboarding": "التعريف",
+      "check_in": "تسجيل دوري",
+      "custom": "مخصص"
+    },
+    "status": {
+      "active": "نشط",
+      "archived": "مؤرشف"
+    },
+    "builder": {
+      "title": "منشئ النماذج",
+      "subtitle": "اسحب وأفلت لإعادة ترتيب الأسئلة.",
+      "templateName": "اسم النموذج",
+      "descriptionAr": "الوصف (عربي)",
+      "descriptionEn": "الوصف (إنجليزي)",
+      "formType": "نوع النموذج",
+      "addQuestion": "إضافة سؤال",
+      "save": "حفظ النموذج",
+      "saved": "تم حفظ النموذج!",
+      "questionTypes": {
+        "text": "نص قصير",
+        "textarea": "نص طويل",
+        "number": "رقم",
+        "select": "قائمة منسدلة",
+        "multiselect": "اختيار متعدد",
+        "radio": "أزرار اختيار",
+        "checkbox": "مربع اختيار",
+        "date": "تاريخ",
+        "file": "رفع ملف",
+        "scale": "مقياس (١-١٠)",
+        "yes_no": "نعم/لا"
+      }
+    },
+    "questionEditor": {
+      "labelAr": "التسمية (عربي)",
+      "labelEn": "التسمية (إنجليزي)",
+      "placeholderAr": "النص التوجيهي (عربي)",
+      "placeholderEn": "النص التوجيهي (إنجليزي)",
+      "helpTextAr": "نص المساعدة (عربي)",
+      "helpTextEn": "نص المساعدة (إنجليزي)",
+      "required": "إجباري",
+      "minValue": "الحد الأدنى",
+      "maxValue": "الحد الأقصى",
+      "minLength": "أقل طول",
+      "maxLength": "أقصى طول",
+      "options": "خيارات",
+      "addOption": "إضافة خيار",
+      "optionValue": "القيمة",
+      "optionLabelAr": "التسمية (عربي)",
+      "optionLabelEn": "التسمية (إنجليزي)",
+      "conditionalLogic": "منطق شرطي",
+      "showIf": "أظهر هذا السؤال إذا",
+      "selectQuestion": "اختر سؤالاً",
+      "equals": "يساوي",
+      "notEquals": "لا يساوي",
+      "contains": "يحتوي على",
+      "frequencyDays": "كرر كل (أيام)",
+      "reminderEnabled": "إرسال تذكيرات",
+      "allowDraftSave": "السماح بالحفظ المؤقت"
+    },
+    "assign": {
+      "title": "تعيين النموذج",
+      "subtitle": "اختر العملاء لتعيين هذا النموذج لهم.",
+      "selectAll": "اختيار الكل",
+      "deselectAll": "إلغاء اختيار الكل",
+      "selected": "{count} محدد",
+      "dueDate": "تاريخ الاستحقاق",
+      "recurring": "جعله دورياً",
+      "assign": "تعيين",
+      "assigned": "تم تعيين النموذج لـ {count} عملاء!"
+    },
+    "responses": {
+      "title": "الردود على النموذج",
+      "subtitle": "اعرض الردود من عملائك.",
+      "client": "العميل",
+      "status": "الحالة",
+      "started": "بدأ",
+      "completed": "أكمل",
+      "due": "مستحق",
+      "view": "عرض",
+      "export": "تصدير CSV",
+      "noResponses": "لا توجد ردود بعد.",
+      "statusLabels": {
+        "pending": "معلق",
+        "in_progress": "قيد التنفيذ",
+        "completed": "مكتمل",
+        "overdue": "متأخر",
+        "skipped": "تم التجاهل"
+      }
+    },
+    "runner": {
+      "title": "النموذج",
+      "saveDraft": "حفظ كمسودة",
+      "draftSaved": "تم حفظ المسودة",
+      "submit": "إرسال",
+      "submitted": "تم إرسال النموذج!",
+      "next": "التالي",
+      "previous": "السابق",
+      "review": "مراجعة",
+      "started": "بدأ النموذج",
+      "progress": "{completed} من {total} أسئلة"
+    },
+    "errors": {
+      "createFailed": "فشل إنشاء النموذج",
+      "updateFailed": "فشل تحديث النموذج",
+      "deleteFailed": "فشل حذف النموذج",
+      "assignFailed": "فشل تعيين النموذج",
+      "submitFailed": "فشل إرسال النموذج",
+      "loadFailed": "فشل تحميل النماذج",
+      "required": "هذا الحقل مطلوب",
+      "addQuestion": "فشل إضافة السؤال"
+    }
+  },
+  "settings": {
+    "profile": {
+      "title": "إعدادات الملف الشخصي",
+      "subtitle": "إدارة إعدادات حسابك.",
+      "fullName": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "locale": "اللغة",
+      "avatar": "الصورة الشخصية",
+      "save": "حفظ التغييرات",
+      "saved": "تم حفظ الإعدادات!",
+      "uploadAvatar": "رفع صورة"
+    },
+    "coach": {
+      "title": "إعدادات المدرب",
+      "subtitle": "إدارة ملفك التعريفي كمدرب.",
+      "bioAr": "السيرة الذاتية (عربي)",
+      "bioEn": "السيرة الذاتية (إنجليزي)",
+      "specializations": "التخصصات",
+      "subscription": "الاشتراك",
+      "manageBilling": "إدارة الفواتير",
+      "plan": "الخطة",
+      "clientLimit": "الحد الأقصى للعملاء",
+      "currentClients": "العملاء الحاليون"
+    }
+  },
   "library": {
     "title": "مكتبة التمارين",
     "subtitle": "تصفح التمارين وأضف تمارينك الخاصة.",

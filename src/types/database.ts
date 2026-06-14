@@ -188,6 +188,140 @@ export type Database = {
         Update: Partial<Database["public"]["Tables"]["workout_log_sets"]["Row"]>;
       };
     };
+    form_templates: {
+      Row: {
+        id: string;
+        coach_id: string;
+        name: string;
+        description_ar: string | null;
+        description_en: string | null;
+        type: "onboarding" | "check_in" | "custom";
+        is_active: boolean;
+        settings: Record<string, unknown>;
+        version: number;
+        parent_template_id: string | null;
+        created_at: string;
+        updated_at: string;
+      };
+      Insert: Partial<{
+        id: string; coach_id: string; name: string;
+        description_ar: string | null; description_en: string | null;
+        type: "onboarding" | "check_in" | "custom"; is_active: boolean;
+        settings: Record<string, unknown>; version: number;
+        parent_template_id: string | null; created_at: string; updated_at: string;
+      }> & { coach_id: string; name: string };
+      Update: Partial<{
+        id: string; coach_id: string; name: string;
+        description_ar: string | null; description_en: string | null;
+        type: "onboarding" | "check_in" | "custom"; is_active: boolean;
+        settings: Record<string, unknown>; version: number;
+        parent_template_id: string | null; created_at: string; updated_at: string;
+      }>;
+    };
+    form_questions: {
+      Row: {
+        id: string;
+        template_id: string;
+        label_ar: string;
+        label_en: string;
+        type: string;
+        options: { value: string; label_ar: string; label_en: string }[] | null;
+        validation: Record<string, unknown>;
+        placeholder_ar: string | null;
+        placeholder_en: string | null;
+        help_text_ar: string | null;
+        help_text_en: string | null;
+        order_index: number;
+        conditional_logic: Record<string, unknown> | null;
+        created_at: string;
+        updated_at: string;
+      };
+      Insert: Partial<{
+        id: string; template_id: string; label_ar: string; label_en: string;
+        type: string; options: any; validation: Record<string, unknown>;
+        placeholder_ar: string | null; placeholder_en: string | null;
+        help_text_ar: string | null; help_text_en: string | null;
+        order_index: number; conditional_logic: any;
+        created_at: string; updated_at: string;
+      }> & { template_id: string; label_ar: string; label_en: string; type: string; order_index: number };
+      Update: Partial<{
+        id: string; template_id: string; label_ar: string; label_en: string; type: string;
+        options: any; validation: Record<string, unknown>;
+        placeholder_ar: string | null; placeholder_en: string | null;
+        help_text_ar: string | null; help_text_en: string | null;
+        order_index: number; conditional_logic: any;
+        created_at: string; updated_at: string;
+      }>;
+    };
+    form_assignments: {
+      Row: {
+        id: string;
+        template_id: string;
+        template_version: number;
+        client_id: string;
+        assigned_by: string;
+        status: "pending" | "in_progress" | "completed" | "overdue" | "skipped";
+        due_at: string | null;
+        started_at: string | null;
+        completed_at: string | null;
+        created_at: string;
+        updated_at: string;
+      };
+      Insert: Partial<{
+        id: string; template_id: string; template_version: number;
+        client_id: string; assigned_by: string;
+        status: "pending" | "in_progress" | "completed" | "overdue" | "skipped";
+        due_at: string | null; started_at: string | null; completed_at: string | null;
+        created_at: string; updated_at: string;
+      }> & { template_id: string; client_id: string; assigned_by: string };
+      Update: Partial<{
+        id: string; template_id: string; template_version: number;
+        client_id: string; assigned_by: string;
+        status: "pending" | "in_progress" | "completed" | "overdue" | "skipped";
+        due_at: string | null; started_at: string | null; completed_at: string | null;
+        created_at: string; updated_at: string;
+      }>;
+    };
+    form_responses: {
+      Row: {
+        id: string;
+        assignment_id: string;
+        question_id: string;
+        value: unknown;
+        is_draft: boolean;
+        created_at: string;
+        updated_at: string;
+      };
+      Insert: Partial<{
+        id: string; assignment_id: string; question_id: string;
+        value: unknown; is_draft: boolean;
+        created_at: string; updated_at: string;
+      }> & { assignment_id: string; question_id: string; value: unknown };
+      Update: Partial<{
+        id: string; assignment_id: string; question_id: string;
+        value: unknown; is_draft: boolean;
+        created_at: string; updated_at: string;
+      }>;
+    };
+    form_files: {
+      Row: {
+        id: string;
+        response_id: string;
+        storage_path: string;
+        original_name: string;
+        mime_type: string;
+        size_bytes: number;
+        created_at: string;
+      };
+      Insert: Partial<{
+        id: string; response_id: string; storage_path: string;
+        original_name: string; mime_type: string; size_bytes: number; created_at: string;
+      }> & { response_id: string; storage_path: string; original_name: string; mime_type: string; size_bytes: number };
+      Update: Partial<{
+        id: string; response_id: string; storage_path: string;
+        original_name: string; mime_type: string; size_bytes: number; created_at: string;
+      }>;
+    };
     Views: Record<string, never>;
     Functions: Record<string, never>;
     Enums: Record<string, never>;

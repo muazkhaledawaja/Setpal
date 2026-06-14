@@ -179,6 +179,163 @@
       "weight": "kg"
     }
   },
+  "forms": {
+    "title": "Forms",
+    "subtitle": "Build custom forms for your clients.",
+    "newForm": "New Form",
+    "empty": "No forms yet. Create your first form to start collecting data.",
+    "name": "Name",
+    "type": "Type",
+    "questions": "Questions",
+    "assignments": "Assignments",
+    "completion": "Completion",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "duplicate": "Duplicate",
+    "preview": "Preview",
+    "assign": "Assign to Clients",
+    "responses": "Responses",
+    "back": "Back to Forms",
+    "typeLabels": {
+      "onboarding": "Onboarding",
+      "check_in": "Check-in",
+      "custom": "Custom"
+    },
+    "status": {
+      "active": "Active",
+      "archived": "Archived"
+    },
+    "builder": {
+      "title": "Form Builder",
+      "subtitle": "Drag and drop to reorder questions.",
+      "templateName": "Form Name",
+      "descriptionAr": "Description (Arabic)",
+      "descriptionEn": "Description (English)",
+      "formType": "Form Type",
+      "addQuestion": "Add Question",
+      "save": "Save Form",
+      "saved": "Form saved!",
+      "questionTypes": {
+        "text": "Short Text",
+        "textarea": "Long Text",
+        "number": "Number",
+        "select": "Dropdown",
+        "multiselect": "Multi-select",
+        "radio": "Radio Buttons",
+        "checkbox": "Checkbox",
+        "date": "Date",
+        "file": "File Upload",
+        "scale": "Scale (1-10)",
+        "yes_no": "Yes/No"
+      }
+    },
+    "questionEditor": {
+      "labelAr": "Label (Arabic)",
+      "labelEn": "Label (English)",
+      "placeholderAr": "Placeholder (Arabic)",
+      "placeholderEn": "Placeholder (English)",
+      "helpTextAr": "Help Text (Arabic)",
+      "helpTextEn": "Help Text (English)",
+      "required": "Required",
+      "minValue": "Min Value",
+      "maxValue": "Max Value",
+      "minLength": "Min Length",
+      "maxLength": "Max Length",
+      "options": "Options",
+      "addOption": "Add Option",
+      "optionValue": "Value",
+      "optionLabelAr": "Label (Arabic)",
+      "optionLabelEn": "Label (English)",
+      "conditionalLogic": "Conditional Logic",
+      "showIf": "Show this question if",
+      "selectQuestion": "Select question",
+      "equals": "equals",
+      "notEquals": "does not equal",
+      "contains": "contains",
+      "frequencyDays": "Repeat every (days)",
+      "reminderEnabled": "Send reminders",
+      "allowDraftSave": "Allow draft save"
+    },
+    "assign": {
+      "title": "Assign Form",
+      "subtitle": "Select clients to assign this form to.",
+      "selectAll": "Select All",
+      "deselectAll": "Deselect All",
+      "selected": "{count} selected",
+      "dueDate": "Due Date",
+      "recurring": "Make recurring",
+      "assign": "Assign",
+      "assigned": "Form assigned to {count} clients!"
+    },
+    "responses": {
+      "title": "Form Responses",
+      "subtitle": "View responses from your clients.",
+      "client": "Client",
+      "status": "Status",
+      "started": "Started",
+      "completed": "Completed",
+      "due": "Due",
+      "view": "View",
+      "export": "Export CSV",
+      "noResponses": "No responses yet.",
+      "statusLabels": {
+        "pending": "Pending",
+        "in_progress": "In Progress",
+        "completed": "Completed",
+        "overdue": "Overdue",
+        "skipped": "Skipped"
+      }
+    },
+    "runner": {
+      "title": "Form",
+      "saveDraft": "Save Draft",
+      "draftSaved": "Draft saved",
+      "submit": "Submit",
+      "submitted": "Form submitted!",
+      "next": "Next",
+      "previous": "Previous",
+      "review": "Review",
+      "started": "Form started",
+      "progress": "{completed} of {total} questions"
+    },
+    "errors": {
+      "createFailed": "Failed to create form",
+      "updateFailed": "Failed to update form",
+      "deleteFailed": "Failed to delete form",
+      "assignFailed": "Failed to assign form",
+      "submitFailed": "Failed to submit form",
+      "loadFailed": "Failed to load forms",
+      "required": "This field is required",
+      "addQuestion": "Failed to add question"
+    }
+  },
+  "settings": {
+    "profile": {
+      "title": "Profile Settings",
+      "subtitle": "Manage your account settings.",
+      "fullName": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "locale": "Language",
+      "avatar": "Profile Picture",
+      "save": "Save Changes",
+      "saved": "Settings saved!",
+      "uploadAvatar": "Upload Photo"
+    },
+    "coach": {
+      "title": "Coach Settings",
+      "subtitle": "Manage your coaching profile.",
+      "bioAr": "Bio (Arabic)",
+      "bioEn": "Bio (English)",
+      "specializations": "Specializations",
+      "subscription": "Subscription",
+      "manageBilling": "Manage Billing",
+      "plan": "Plan",
+      "clientLimit": "Client Limit",
+      "currentClients": "Current Clients"
+    }
+  },
   "library": {
     "title": "Exercise Library",
     "subtitle": "Browse exercises and add your own.",
