@@ -1,0 +1,60 @@
+/* ============================================================================
+   Setpal — Typography tokens
+   Inter for UI/body, Fraunces (serif) for display headings (weight 500,
+   tight tracking). In RTL, headings fall back to Inter 600 — Fraunces has no
+   Arabic coverage.
+   ============================================================================ */
+
+:root {
+  /* Families */
+  --font-sans: var(--font-inter, "Inter"), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-fraunces, "Fraunces"), Georgia, serif;
+
+  /* Type scale (rem) */
+  --text-xs: 0.75rem;     /* 12px — badges, captions */
+  --text-sm: 0.875rem;    /* 14px — body small, table, UI default */
+  --text-base: 1rem;      /* 16px — body */
+  --text-lg: 1.125rem;    /* 18px — section subtitle */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px — page H1 */
+  --text-3xl: 1.875rem;   /* 30px — stat numbers */
+  --text-4xl: 2.25rem;    /* 36px — marketing display */
+
+  /* Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line heights */
+  --leading-none: 1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-normal: 1.6;
+
+  /* Heading tracking */
+  --tracking-display: -0.02em;
+}
+
+/* Base element styling */
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-tight);
+}
+
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3,
+[dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0;
+}

@@ -1,0 +1,35 @@
+/* ============================================================================
+   Setpal — Spacing, radius, shadow tokens
+   4px base grid. Radius scale matches the product's globals.css.
+   ============================================================================ */
+
+:root {
+  /* Spacing scale (4px base) */
+  --space-1: 0.25rem;   /* 4 */
+  --space-2: 0.5rem;    /* 8 */
+  --space-3: 0.75rem;   /* 12 */
+  --space-4: 1rem;      /* 16 */
+  --space-5: 1.25rem;   /* 20 */
+  --space-6: 1.5rem;    /* 24 — card padding, page gutter */
+  --space-8: 2rem;      /* 32 */
+  --space-10: 2.5rem;   /* 40 */
+  --space-12: 3rem;     /* 48 */
+  --space-16: 4rem;     /* 64 */
+
+  /* Border radius */
+  --radius-sm: 0.25rem;   /* 4 — chips, inner */
+  --radius-md: 0.375rem;  /* 6 — buttons, inputs, badges(square) */
+  --radius-lg: 0.625rem;  /* 10 — cards, panels */
+  --radius-xl: 0.875rem;  /* 14 — large surfaces */
+  --radius-full: 9999px;  /* pills, avatars */
+
+  /* Shadows — soft & low; surfaces lean on borders, not elevation */
+  --shadow-xs: 0 1px 2px 0 oklch(0.22 0.02 200 / 0.05);
+  --shadow-sm: 0 1px 3px 0 oklch(0.22 0.02 200 / 0.08), 0 1px 2px -1px oklch(0.22 0.02 200 / 0.08);
+  --shadow-md: 0 4px 12px -2px oklch(0.22 0.02 200 / 0.10);
+  --shadow-lg: 0 12px 28px -6px oklch(0.22 0.02 200 / 0.16);
+
+  /* Layout */
+  --sidebar-width: 16rem;   /* 256 */
+  --topbar-height: 4rem;    /* 64 */
+}

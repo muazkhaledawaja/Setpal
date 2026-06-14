@@ -1,0 +1,8 @@
+/* ============================================================================
+   Setpal — Webfonts
+   Inter (sans, UI + body) and Fraunces (serif, display/headings).
+   These are the brand's actual fonts (next/font: Inter + Fraunces). Loaded
+   here from Google Fonts so consumers get them by linking styles.css alone.
+   ============================================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap");
