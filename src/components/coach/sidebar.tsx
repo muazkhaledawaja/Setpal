@@ -20,7 +20,7 @@ export function CoachSidebar() {
 
   return (
     <aside className="flex flex-col w-64 min-h-screen bg-sidebar border-e border-sidebar-border shrink-0">
-      <div className="flex items-center h-16 px-6 border-b border-sidebar-border">
+      <div className="flex items-center h-16 px-6 border-b border-sidebar-border" dir="ltr">
         <Logo variant="horizontal" theme="dark" width={160} />
       </div>
 
