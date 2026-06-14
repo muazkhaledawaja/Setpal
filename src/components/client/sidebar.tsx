@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Home, Dumbbell, ClipboardList, History, Settings } from "lucide-react";
 import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/ui/logo";
 
 const NAV_ITEMS = [
   { key: "overview", href: "/client", icon: Home },
@@ -20,7 +21,7 @@ export function ClientSidebar() {
   return (
     <aside className="hidden md:flex flex-col w-64 min-h-screen bg-sidebar border-e border-sidebar-border shrink-0">
       <div className="flex items-center h-16 px-6 border-b border-sidebar-border">
-        <span className="text-lg font-serif font-semibold text-sidebar-primary">{t("appName")}</span>
+        <Logo variant="horizontal" theme="dark" width={160} />
       </div>
       <nav className="flex-1 px-3 py-4 space-y-1">
         {NAV_ITEMS.map(({ key, href, icon: Icon }) => {
