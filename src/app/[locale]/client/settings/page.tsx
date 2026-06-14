@@ -1,7 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import { requireRole } from "@/lib/auth/require-role";
 import { createClient } from "@/lib/supabase/server";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ProfileSettingsForm } from "@/components/settings/profile-settings-form";
+import { PasswordSettingsForm } from "@/components/settings/password-settings-form";
 
 export default async function ClientSettingsPage({
   params,
@@ -9,50 +10,34 @@ export default async function ClientSettingsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations("client");
+  const t = await getTranslations("settings");
+  const { userId, profile } = await requireRole(locale, "client");
 
-  const { userId } = await requireRole(locale, "client");
   const supabase = await createClient();
-
-  const { data: profileData } = (await supabase
-    .from("profiles")
-    .select("full_name, locale")
-    .eq("id", userId)
-    .single()) as {
-    data: { full_name: string | null; locale: string | null } | null;
-    error: unknown;
-  };
-
-  const profile = profileData ?? { full_name: null, locale: null };
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-3xl p-4 sm:p-6">
       <div>
-        <h1 className="text-2xl font-serif font-semibold text-foreground">
-          {t("settings.title")}
-        </h1>
-        <p className="text-sm text-muted-foreground mt-1">
-          {t("settings.subtitle")}
-        </p>
+        <h1 className="text-2xl font-serif font-semibold">{t("client.title")}</h1>
+        <p className="text-sm text-muted-foreground mt-1">{t("client.subtitle")}</p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("settings.profile")}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            <p>
-              <span className="font-medium">{t("common.fullName")}: </span>
-              {profile?.full_name ?? "—"}
-            </p>
-            <p>
-              <span className="font-medium">{t("common.locale")}: </span>
-              {profile?.locale ?? "—"}
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+      <ProfileSettingsForm
+        userId={userId}
+        locale={locale}
+        email={user?.email ?? ""}
+        initial={{
+          full_name: profile.full_name,
+          phone: profile.phone,
+          locale: profile.locale,
+          avatar_url: profile.avatar_url,
+        }}
+      />
+
+      <PasswordSettingsForm />
     </div>
   );
 }

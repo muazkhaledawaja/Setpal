@@ -194,8 +194,36 @@
     "delete": "حذف",
     "duplicate": "نسخ",
     "preview": "معاينة",
-    "assign": "تعيين للعملاء",
-    "responses": "الردود",
+    "assign": {
+      "title": "تعيين النموذج",
+      "subtitle": "اختر العملاء لتعيين هذا النموذج لهم.",
+      "selectAll": "اختيار الكل",
+      "deselectAll": "إلغاء اختيار الكل",
+      "selected": "{count} محدد",
+      "dueDate": "تاريخ الاستحقاق",
+      "recurring": "جعله دورياً",
+      "assign": "تعيين",
+      "assigned": "تم تعيين النموذج لـ {count} عملاء!"
+    },
+    "responses": {
+      "title": "الردود على النموذج",
+      "subtitle": "اعرض الردود من عملائك.",
+      "client": "العميل",
+      "status": "الحالة",
+      "started": "بدأ",
+      "completed": "أكمل",
+      "due": "مستحق",
+      "view": "عرض",
+      "export": "تصدير CSV",
+      "noResponses": "لا توجد ردود بعد.",
+      "statusLabels": {
+        "pending": "معلق",
+        "in_progress": "قيد التنفيذ",
+        "completed": "مكتمل",
+        "overdue": "متأخر",
+        "skipped": "تم التجاهل"
+      }
+    },
     "back": "العودة إلى النماذج",
     "typeLabels": {
       "onboarding": "التعريف",
@@ -257,36 +285,6 @@
       "reminderEnabled": "إرسال تذكيرات",
       "allowDraftSave": "السماح بالحفظ المؤقت"
     },
-    "assign": {
-      "title": "تعيين النموذج",
-      "subtitle": "اختر العملاء لتعيين هذا النموذج لهم.",
-      "selectAll": "اختيار الكل",
-      "deselectAll": "إلغاء اختيار الكل",
-      "selected": "{count} محدد",
-      "dueDate": "تاريخ الاستحقاق",
-      "recurring": "جعله دورياً",
-      "assign": "تعيين",
-      "assigned": "تم تعيين النموذج لـ {count} عملاء!"
-    },
-    "responses": {
-      "title": "الردود على النموذج",
-      "subtitle": "اعرض الردود من عملائك.",
-      "client": "العميل",
-      "status": "الحالة",
-      "started": "بدأ",
-      "completed": "أكمل",
-      "due": "مستحق",
-      "view": "عرض",
-      "export": "تصدير CSV",
-      "noResponses": "لا توجد ردود بعد.",
-      "statusLabels": {
-        "pending": "معلق",
-        "in_progress": "قيد التنفيذ",
-        "completed": "مكتمل",
-        "overdue": "متأخر",
-        "skipped": "تم التجاهل"
-      }
-    },
     "runner": {
       "title": "النموذج",
       "saveDraft": "حفظ كمسودة",
@@ -321,7 +319,13 @@
       "avatar": "الصورة الشخصية",
       "save": "حفظ التغييرات",
       "saved": "تم حفظ الإعدادات!",
-      "uploadAvatar": "رفع صورة"
+      "uploadAvatar": "رفع صورة",
+      "emailHint": "تواصل مع الدعم لتغيير بريدك الإلكتروني.",
+      "languageAr": "العربية",
+      "languageEn": "الإنجليزية",
+      "saveError": "فشل حفظ التغييرات",
+      "avatarError": "فشل رفع الصورة",
+      "avatarHint": "JPG أو PNG أو WebP."
     },
     "coach": {
       "title": "إعدادات المدرب",
@@ -333,7 +337,36 @@
       "manageBilling": "إدارة الفواتير",
       "plan": "الخطة",
       "clientLimit": "الحد الأقصى للعملاء",
-      "currentClients": "العملاء الحاليون"
+      "currentClients": "العملاء الحاليون",
+      "profileTitle": "الملف التعريفي للمدرب",
+      "profileSubtitle": "سيرتك الذاتية وتخصصاتك التي تظهر للعملاء.",
+      "save": "حفظ التغييرات",
+      "saved": "تم الحفظ!",
+      "saveError": "فشل الحفظ",
+      "specializationsPlaceholder": "مثال: تدريب القوة",
+      "removeSpecialization": "إزالة",
+      "subscriptionSubtitle": "خطتك الحالية واستخدامك.",
+      "trialDaysLeft": "متبقٍ {days} يوم",
+      "comingSoon": "قريباً"
+    },
+    "client": {
+      "title": "الإعدادات",
+      "subtitle": "إدارة حسابك."
+    },
+    "password": {
+      "title": "كلمة المرور",
+      "subtitle": "تغيير كلمة مرور حسابك.",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "update": "تحديث كلمة المرور",
+      "updated": "تم تحديث كلمة المرور!",
+      "error": "فشل تحديث كلمة المرور"
+    },
+    "tierLabels": {
+      "trial": "تجريبي",
+      "starter": "المبتدئ",
+      "pro": "المحترف",
+      "elite": "النخبة"
     }
   },
   "library": {

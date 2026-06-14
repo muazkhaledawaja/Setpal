@@ -194,8 +194,36 @@
     "delete": "Delete",
     "duplicate": "Duplicate",
     "preview": "Preview",
-    "assign": "Assign to Clients",
-    "responses": "Responses",
+    "assign": {
+      "title": "Assign Form",
+      "subtitle": "Select clients to assign this form to.",
+      "selectAll": "Select All",
+      "deselectAll": "Deselect All",
+      "selected": "{count} selected",
+      "dueDate": "Due Date",
+      "recurring": "Make recurring",
+      "assign": "Assign",
+      "assigned": "Form assigned to {count} clients!"
+    },
+    "responses": {
+      "title": "Form Responses",
+      "subtitle": "View responses from your clients.",
+      "client": "Client",
+      "status": "Status",
+      "started": "Started",
+      "completed": "Completed",
+      "due": "Due",
+      "view": "View",
+      "export": "Export CSV",
+      "noResponses": "No responses yet.",
+      "statusLabels": {
+        "pending": "Pending",
+        "in_progress": "In Progress",
+        "completed": "Completed",
+        "overdue": "Overdue",
+        "skipped": "Skipped"
+      }
+    },
     "back": "Back to Forms",
     "typeLabels": {
       "onboarding": "Onboarding",
@@ -257,36 +285,6 @@
       "reminderEnabled": "Send reminders",
       "allowDraftSave": "Allow draft save"
     },
-    "assign": {
-      "title": "Assign Form",
-      "subtitle": "Select clients to assign this form to.",
-      "selectAll": "Select All",
-      "deselectAll": "Deselect All",
-      "selected": "{count} selected",
-      "dueDate": "Due Date",
-      "recurring": "Make recurring",
-      "assign": "Assign",
-      "assigned": "Form assigned to {count} clients!"
-    },
-    "responses": {
-      "title": "Form Responses",
-      "subtitle": "View responses from your clients.",
-      "client": "Client",
-      "status": "Status",
-      "started": "Started",
-      "completed": "Completed",
-      "due": "Due",
-      "view": "View",
-      "export": "Export CSV",
-      "noResponses": "No responses yet.",
-      "statusLabels": {
-        "pending": "Pending",
-        "in_progress": "In Progress",
-        "completed": "Completed",
-        "overdue": "Overdue",
-        "skipped": "Skipped"
-      }
-    },
     "runner": {
       "title": "Form",
       "saveDraft": "Save Draft",
@@ -321,7 +319,13 @@
       "avatar": "Profile Picture",
       "save": "Save Changes",
       "saved": "Settings saved!",
-      "uploadAvatar": "Upload Photo"
+      "uploadAvatar": "Upload Photo",
+      "emailHint": "Contact support to change your email.",
+      "languageAr": "Arabic",
+      "languageEn": "English",
+      "saveError": "Failed to save changes",
+      "avatarError": "Failed to upload photo",
+      "avatarHint": "JPG, PNG or WebP."
     },
     "coach": {
       "title": "Coach Settings",
@@ -333,7 +337,36 @@
       "manageBilling": "Manage Billing",
       "plan": "Plan",
       "clientLimit": "Client Limit",
-      "currentClients": "Current Clients"
+      "currentClients": "Current Clients",
+      "profileTitle": "Coaching Profile",
+      "profileSubtitle": "Your bio and specializations shown to clients.",
+      "save": "Save Changes",
+      "saved": "Saved!",
+      "saveError": "Failed to save",
+      "specializationsPlaceholder": "e.g. Strength training",
+      "removeSpecialization": "Remove",
+      "subscriptionSubtitle": "Your current plan and usage.",
+      "trialDaysLeft": "{days} days left",
+      "comingSoon": "coming soon"
+    },
+    "client": {
+      "title": "Settings",
+      "subtitle": "Manage your account."
+    },
+    "password": {
+      "title": "Password",
+      "subtitle": "Change your account password.",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password",
+      "update": "Update password",
+      "updated": "Password updated!",
+      "error": "Failed to update password"
+    },
+    "tierLabels": {
+      "trial": "Trial",
+      "starter": "Starter",
+      "pro": "Pro",
+      "elite": "Elite"
     }
   },
   "library": {
