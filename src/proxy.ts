@@ -23,7 +23,7 @@ function getLocale(pathname: string): string {
   return routing.defaultLocale;
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   // 1. Run intl middleware first. If it returns a redirect (e.g. "/" → "/ar"),
   //    short-circuit and return it immediately.
   const intlResponse = intlMiddleware(request);
