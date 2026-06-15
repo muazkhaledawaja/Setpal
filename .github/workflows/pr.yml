@@ -81,16 +81,16 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Run migration SQL files against test DB
+      - name: Run all migrations against test DB
         if: steps.changed.outputs.files != ''
         env:
           PGPASSWORD: testpassword
         run: |
-          echo "${{ steps.changed.outputs.files }}" | sort | while IFS= read -r file; do
-            if [ -f "$file" ]; then
-              echo "Checking: $file"
-              psql -h localhost -p 5432 -U testuser -d testdb --set ON_ERROR_STOP=1 -f "$file"
-            fi
+          # Run the full migration stack in order so later migrations have their dependencies.
+          # The test DB is empty, so this also validates the entire history is self-consistent.
+          for file in $(ls supabase/migrations/*.sql | sort); do
+            echo "Applying: $file"
+            psql -h localhost -p 5432 -U testuser -d testdb --set ON_ERROR_STOP=1 -f "$file"
           done
 
       - name: No migration files changed
