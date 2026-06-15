@@ -51,8 +51,11 @@ jobs:
     name: Migration Check
     runs-on: ubuntu-latest
     services:
+      # supabase/postgres ships with pgcrypto, uuid-ossp, the auth schema,
+      # auth.uid() stub, and all other Supabase-specific extensions pre-loaded.
+      # Plain postgres:15 is missing these and cannot run Supabase migrations.
       postgres:
-        image: postgres:15
+        image: supabase/postgres:15.8.1.060
         env:
           POSTGRES_USER: testuser
           POSTGRES_PASSWORD: testpassword
