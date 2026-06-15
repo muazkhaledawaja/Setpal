@@ -35,6 +35,13 @@ export async function requireRole(
     throw new Error("unreachable");
   }
 
+  // Account approval gate: an active status is required to reach any role
+  // dashboard. Pending / suspended users are funneled to the /pending screen.
+  if (profileData.status !== "active") {
+    redirect({ href: "/pending", locale });
+    throw new Error("unreachable");
+  }
+
   if (profileData.role !== requiredRole) {
     redirect({ href: "/", locale });
     throw new Error("unreachable");

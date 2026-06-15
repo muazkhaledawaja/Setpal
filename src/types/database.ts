@@ -9,6 +9,7 @@ export type Database = {
         Row: {
           id: string;
           role: "admin" | "coach" | "client";
+          status: "pending" | "active" | "suspended";
           full_name: string | null;
           locale: "ar" | "en";
           avatar_url: string | null;
@@ -323,7 +324,30 @@ export type Database = {
       }>;
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      admin_list_users: {
+        Args: Record<string, never>;
+        Returns: {
+          id: string;
+          full_name: string | null;
+          email: string;
+          role: "admin" | "coach" | "client";
+          status: "pending" | "active" | "suspended";
+          locale: "ar" | "en";
+          created_at: string;
+          last_sign_in: string | null;
+          client_count: number;
+        }[];
+      };
+      approve_user: {
+        Args: { target: string; new_role: string };
+        Returns: void;
+      };
+      set_user_status: {
+        Args: { target: string; new_status: string };
+        Returns: void;
+      };
+    };
     Enums: Record<string, never>;
   };
 };

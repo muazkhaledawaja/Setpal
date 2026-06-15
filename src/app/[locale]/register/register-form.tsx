@@ -69,8 +69,8 @@ export function RegisterForm({ locale }: { locale: string }) {
       return;
     }
 
-    const target = values.role === "coach" ? "/coach" : "/client";
-    router.push(target);
+    // New accounts are pending admin approval — no dashboard access yet.
+    router.push("/pending");
     router.refresh();
   }
 

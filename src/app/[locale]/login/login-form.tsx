@@ -33,18 +33,27 @@ export function LoginForm() {
       return;
     }
 
-    // Fetch role to redirect to the right dashboard
+    // Fetch role + status to redirect appropriately. Unapproved or suspended
+    // accounts go to /pending regardless of role.
     const { data: profile } = (await supabase
       .from("profiles")
-      .select("role")
+      .select("role, status")
       .eq("id", data.user.id)
-      .single()) as { data: { role: "admin" | "coach" | "client" } | null };
+      .single()) as {
+      data: {
+        role: "admin" | "coach" | "client";
+        status: "pending" | "active" | "suspended";
+      } | null;
+    };
 
-    const target = profile?.role === "admin"
-      ? "/admin"
-      : profile?.role === "coach"
-      ? "/coach"
-      : "/client";
+    const target =
+      profile?.status !== "active"
+        ? "/pending"
+        : profile.role === "admin"
+        ? "/admin"
+        : profile.role === "coach"
+        ? "/coach"
+        : "/client";
 
     router.push(target);
     router.refresh();

@@ -1,25 +1,122 @@
-import { Link } from "@/i18n/routing";
-import { Button } from "@/components/ui/button";
-import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import { routing } from "@/i18n/routing";
+import { LandingNav } from "@/components/landing/nav";
+import { LandingHero } from "@/components/landing/hero";
+import { LandingFeatures } from "@/components/landing/features";
+import { LandingHow } from "@/components/landing/how";
+import { LandingMena } from "@/components/landing/mena";
+import { LandingPricing } from "@/components/landing/pricing";
+import { LandingFaq } from "@/components/landing/faq";
+import { LandingFooter } from "@/components/landing/footer";
+import "@/components/landing/landing.css";
 
-export default async function HomePage() {
-  const t = await getTranslations("common");
+const SITE_URL = "https://setpal.vercel.app";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "landing.meta" });
+  const title = t("title");
+  const description = t("description");
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        ar: "/ar",
+        en: "/en",
+        "x-default": `/${routing.defaultLocale}`,
+      },
+    },
+    openGraph: {
+      type: "website",
+      siteName: "Setpal",
+      title,
+      description,
+      url: `${SITE_URL}/${locale}`,
+      locale: locale === "ar" ? "ar_EG" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
+
+interface QA {
+  q: string;
+  a: string;
+}
+
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const tMeta = await getTranslations("landing.meta");
+  const tFaq = await getTranslations("landing.faq");
+  const faqItems = tFaq.raw("items") as QA[];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        name: "Setpal",
+        url: SITE_URL,
+        logo: `${SITE_URL}/landing/setpal-logo.svg`,
+        description: tMeta("description"),
+      },
+      {
+        "@type": "SoftwareApplication",
+        name: "Setpal",
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Web",
+        description: tMeta("description"),
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+          description: "14-day free trial",
+        },
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: faqItems.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: { "@type": "Answer", text: item.a },
+        })),
+      },
+    ],
+  };
+
   return (
-    <main className="min-h-screen flex items-center justify-center bg-background p-8">
-      <div className="max-w-xl text-center space-y-6">
-        <h1 className="text-6xl">{t("appName")}</h1>
-        <p className="text-muted-foreground text-lg">
-          The coaching platform built for MENA.
-        </p>
-        <div className="flex gap-3 justify-center">
-          <Button asChild>
-            <Link href="/register">{t("signUp")}</Link>
-          </Button>
-          <Button asChild variant="outline">
-            <Link href="/login">{t("signIn")}</Link>
-          </Button>
-        </div>
-      </div>
-    </main>
+    <div className="lp-root">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <LandingNav />
+      <main>
+        <LandingHero />
+        <LandingFeatures />
+        <LandingHow />
+        <LandingMena />
+        <LandingPricing />
+        <LandingFaq />
+      </main>
+      <LandingFooter />
+    </div>
   );
 }

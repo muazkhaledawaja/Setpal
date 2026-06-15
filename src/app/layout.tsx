@@ -1,45 +1,22 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces, Cairo } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
-
-const cairo = Cairo({
-  subsets: ["arabic", "latin"],
-  variable: "--font-cairo",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
+  metadataBase: new URL("https://setpal.vercel.app"),
   title: "Setpal — Coaching Platform",
-  description: "Clean numbers without doing math. One calm screen for every coach, in Arabic and English.",
+  description:
+    "Clean numbers without doing math. One calm screen for every coach, in Arabic and English.",
   icons: {
     icon: "/brand/setpal-favicon.svg",
     shortcut: "/brand/setpal-favicon.svg",
   },
 };
 
+// The <html>/<body> elements are rendered by the [locale] layout, which has
+// access to the resolved locale for correct lang/dir. This root layout is a
+// pass-through so locale-aware markup lives where the locale is known.
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html
-      suppressHydrationWarning
-      className={`${inter.variable} ${fraunces.variable} ${cairo.variable}`}
-    >
-      <body suppressHydrationWarning className="antialiased">
-        {children}
-      </body>
-    </html>
-  );
+  return children;
 }

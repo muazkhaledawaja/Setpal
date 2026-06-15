@@ -37,7 +37,104 @@
     "confirmPassword": "Confirm password",
     "updatePassword": "Update password",
     "passwordUpdated": "Your password has been updated",
-    "resetLinkInvalid": "This reset link is invalid or has expired. Please request a new one."
+    "resetLinkInvalid": "This reset link is invalid or has expired. Please request a new one.",
+    "pendingTitle": "Account awaiting approval",
+    "pendingBody": "Thanks for signing up. Your account is being reviewed by our team. You'll get access as soon as it's approved.",
+    "suspendedTitle": "Account suspended",
+    "suspendedBody": "Your account has been suspended. Please contact support if you believe this is a mistake."
+  },
+  "landing": {
+    "meta": {
+      "title": "Setpal — The bilingual coaching platform for MENA",
+      "description": "Setpal is the bilingual coaching platform that handles plans, check-ins, and progress tracking — so coaches across MENA spend their time training, not typing."
+    },
+    "nav": {
+      "features": "Features",
+      "how": "How it works",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "signin": "Sign in",
+      "cta": "Start free trial",
+      "switchLanguage": "Switch language"
+    },
+    "hero": {
+      "eyebrow": "For coaches across MENA",
+      "title": "Coach more clients,\nwith less admin.",
+      "sub": "Setpal is the bilingual coaching platform that handles plans, check-ins, and progress tracking — so you can spend your time training, not typing.",
+      "ctaPrimary": "Start free trial",
+      "ctaSecondary": "See how it works",
+      "note": "14-day free trial · no card required"
+    },
+    "appmock": {
+      "title": "Dashboard",
+      "subtitle": "Welcome back — here's a snapshot of your workspace.",
+      "clients": "Active Clients",
+      "checkins": "Pending Check-ins",
+      "sub": "Subscription",
+      "plan": "Pro",
+      "recent": "Recent clients",
+      "joined": "Joined",
+      "active": "Active",
+      "paused": "Paused",
+      "row1Name": "Layla Hassan",
+      "row1Date": "12 Jan",
+      "row2Name": "Omar Said",
+      "row2Date": "03 Feb",
+      "row3Name": "Nour Khalil",
+      "row3Date": "28 Nov"
+    },
+    "features": {
+      "title": "Everything you need to run your coaching",
+      "sub": "One workspace for plans, your exercise library, forms, and client progress.",
+      "items": [
+        { "icon": "dumbbell", "title": "Workout plans", "body": "Build structured programs day-by-day — exercises, sets, reps, rest, and notes — then assign them in a tap." },
+        { "icon": "library", "title": "Exercise library", "body": "A shared library with demo videos, plus your own custom exercises tagged by muscle group." },
+        { "icon": "clipboard-list", "title": "Forms & check-ins", "body": "Create onboarding and recurring check-in forms. Collect the data you need, on schedule." },
+        { "icon": "trending-up", "title": "Client progress", "body": "Body metrics, progress photos, and workout logs — every client's history in one place." }
+      ]
+    },
+    "how": {
+      "title": "Up and running in minutes",
+      "steps": [
+        { "n": "01", "title": "Invite your clients", "body": "Send an invite link — your client joins with a single tap, in their own language." },
+        { "n": "02", "title": "Build their plan", "body": "Assemble a plan from your library or start from scratch, then assign it instantly." },
+        { "n": "03", "title": "Track every check-in", "body": "Check-ins and workout logs flow back to you automatically, ready to review." }
+      ]
+    },
+    "mena": {
+      "eyebrow": "Built for the region",
+      "title": "Truly bilingual — Arabic and English",
+      "body": "A fully right-to-left interface and bilingual content for every exercise and form. Your clients see Setpal in their language, you work in yours.",
+      "points": ["Complete RTL layout", "Bilingual exercise & form content", "Locale-aware dates and numbers"]
+    },
+    "pricing": {
+      "title": "Pricing that grows with you",
+      "sub": "Start free. Upgrade when your roster does.",
+      "perMonth": "/mo",
+      "cta": "Start free trial",
+      "popular": "Most popular",
+      "tiers": [
+        { "name": "Trial", "price": "Free", "desc": "14 days, full access", "limit": "Up to 3 clients" },
+        { "name": "Starter", "price": "$19", "desc": "For new coaches", "limit": "Up to 10 clients" },
+        { "name": "Pro", "price": "$39", "desc": "For growing practices", "limit": "Up to 25 clients", "popular": true },
+        { "name": "Elite", "price": "$79", "desc": "For studios & teams", "limit": "Unlimited clients" }
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        { "q": "Do my clients need to pay?", "a": "No. Clients are invited free by their coach — you only pay for your own coaching plan." },
+        { "q": "Is Setpal really bilingual?", "a": "Yes. The entire interface works in Arabic (RTL) and English, and exercises and forms carry both languages." },
+        { "q": "Can I bring my own exercises?", "a": "Absolutely. Add custom exercises with your own videos alongside the shared global library." },
+        { "q": "What happens after the trial?", "a": "You keep full access for 14 days. Pick a plan to continue — your data stays exactly where it is." }
+      ]
+    },
+    "footer": {
+      "title": "Ready to grow your coaching business?",
+      "sub": "Start your 14-day free trial today. No card required.",
+      "cta": "Start free trial",
+      "copyright": "© 2026 Setpal. The modern coaching platform for the MENA region."
+    }
   },
   "errors": {
     "invalidCredentials": "Invalid email or password",
@@ -429,5 +526,53 @@
     "subtitle": "Create your account to join your coach. Your email: {email}",
     "createAccount": "Create Account",
     "invalidToken": "This invite link is invalid or has expired."
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "users": "Users"
+    },
+    "dashboard": {
+      "title": "Admin",
+      "subtitle": "Platform overview and account approvals.",
+      "manageUsers": "Manage users →"
+    },
+    "stats": {
+      "pending": "Pending approval",
+      "active": "Active users",
+      "coaches": "Coaches"
+    },
+    "users": {
+      "title": "Users",
+      "subtitle": "Approve, assign roles, and manage access.",
+      "search": "Search by name or email",
+      "allRoles": "All roles",
+      "allStatuses": "All statuses",
+      "empty": "No users match your filters."
+    },
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status",
+      "clients": "Clients",
+      "joined": "Joined",
+      "actions": "Actions"
+    },
+    "roles": {
+      "admin": "Admin",
+      "coach": "Coach",
+      "client": "Client"
+    },
+    "statuses": {
+      "pending": "Pending",
+      "active": "Active",
+      "suspended": "Suspended"
+    },
+    "actions": {
+      "approveAs": "Approve as",
+      "suspend": "Suspend",
+      "reactivate": "Reactivate"
+    }
   }
 }
