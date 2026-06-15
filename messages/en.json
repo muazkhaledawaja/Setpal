@@ -87,25 +87,57 @@
       "title": "Everything you need to run your coaching",
       "sub": "One workspace for plans, your exercise library, forms, and client progress.",
       "items": [
-        { "icon": "dumbbell", "title": "Workout plans", "body": "Build structured programs day-by-day — exercises, sets, reps, rest, and notes — then assign them in a tap." },
-        { "icon": "library", "title": "Exercise library", "body": "A shared library with demo videos, plus your own custom exercises tagged by muscle group." },
-        { "icon": "clipboard-list", "title": "Forms & check-ins", "body": "Create onboarding and recurring check-in forms. Collect the data you need, on schedule." },
-        { "icon": "trending-up", "title": "Client progress", "body": "Body metrics, progress photos, and workout logs — every client's history in one place." }
+        {
+          "icon": "dumbbell",
+          "title": "Workout plans",
+          "body": "Build structured programs day-by-day — exercises, sets, reps, rest, and notes — then assign them in a tap."
+        },
+        {
+          "icon": "library",
+          "title": "Exercise library",
+          "body": "A shared library with demo videos, plus your own custom exercises tagged by muscle group."
+        },
+        {
+          "icon": "clipboard-list",
+          "title": "Forms & check-ins",
+          "body": "Create onboarding and recurring check-in forms. Collect the data you need, on schedule."
+        },
+        {
+          "icon": "trending-up",
+          "title": "Client progress",
+          "body": "Body metrics, progress photos, and workout logs — every client's history in one place."
+        }
       ]
     },
     "how": {
       "title": "Up and running in minutes",
       "steps": [
-        { "n": "01", "title": "Invite your clients", "body": "Send an invite link — your client joins with a single tap, in their own language." },
-        { "n": "02", "title": "Build their plan", "body": "Assemble a plan from your library or start from scratch, then assign it instantly." },
-        { "n": "03", "title": "Track every check-in", "body": "Check-ins and workout logs flow back to you automatically, ready to review." }
+        {
+          "n": "01",
+          "title": "Invite your clients",
+          "body": "Send an invite link — your client joins with a single tap, in their own language."
+        },
+        {
+          "n": "02",
+          "title": "Build their plan",
+          "body": "Assemble a plan from your library or start from scratch, then assign it instantly."
+        },
+        {
+          "n": "03",
+          "title": "Track every check-in",
+          "body": "Check-ins and workout logs flow back to you automatically, ready to review."
+        }
       ]
     },
     "mena": {
       "eyebrow": "Built for the region",
       "title": "Truly bilingual — Arabic and English",
       "body": "A fully right-to-left interface and bilingual content for every exercise and form. Your clients see Setpal in their language, you work in yours.",
-      "points": ["Complete RTL layout", "Bilingual exercise & form content", "Locale-aware dates and numbers"]
+      "points": [
+        "Complete RTL layout",
+        "Bilingual exercise & form content",
+        "Locale-aware dates and numbers"
+      ]
     },
     "pricing": {
       "title": "Pricing that grows with you",
@@ -114,19 +146,52 @@
       "cta": "Start free trial",
       "popular": "Most popular",
       "tiers": [
-        { "name": "Trial", "price": "Free", "desc": "14 days, full access", "limit": "Up to 3 clients" },
-        { "name": "Starter", "price": "$19", "desc": "For new coaches", "limit": "Up to 10 clients" },
-        { "name": "Pro", "price": "$39", "desc": "For growing practices", "limit": "Up to 25 clients", "popular": true },
-        { "name": "Elite", "price": "$79", "desc": "For studios & teams", "limit": "Unlimited clients" }
+        {
+          "name": "Trial",
+          "price": "Free",
+          "desc": "14 days, full access",
+          "limit": "Up to 3 clients"
+        },
+        {
+          "name": "Starter",
+          "price": "$19",
+          "desc": "For new coaches",
+          "limit": "Up to 10 clients"
+        },
+        {
+          "name": "Pro",
+          "price": "$39",
+          "desc": "For growing practices",
+          "limit": "Up to 25 clients",
+          "popular": true
+        },
+        {
+          "name": "Elite",
+          "price": "$79",
+          "desc": "For studios & teams",
+          "limit": "Unlimited clients"
+        }
       ]
     },
     "faq": {
       "title": "Frequently asked questions",
       "items": [
-        { "q": "Do my clients need to pay?", "a": "No. Clients are invited free by their coach — you only pay for your own coaching plan." },
-        { "q": "Is Setpal really bilingual?", "a": "Yes. The entire interface works in Arabic (RTL) and English, and exercises and forms carry both languages." },
-        { "q": "Can I bring my own exercises?", "a": "Absolutely. Add custom exercises with your own videos alongside the shared global library." },
-        { "q": "What happens after the trial?", "a": "You keep full access for 14 days. Pick a plan to continue — your data stays exactly where it is." }
+        {
+          "q": "Do my clients need to pay?",
+          "a": "No. Clients are invited free by their coach — you only pay for your own coaching plan."
+        },
+        {
+          "q": "Is Setpal really bilingual?",
+          "a": "Yes. The entire interface works in Arabic (RTL) and English, and exercises and forms carry both languages."
+        },
+        {
+          "q": "Can I bring my own exercises?",
+          "a": "Absolutely. Add custom exercises with your own videos alongside the shared global library."
+        },
+        {
+          "q": "What happens after the trial?",
+          "a": "You keep full access for 14 days. Pick a plan to continue — your data stays exactly where it is."
+        }
       ]
     },
     "footer": {
@@ -149,7 +214,8 @@
       "clients": "Clients",
       "library": "Library",
       "forms": "Forms",
-      "settings": "Settings"
+      "settings": "Settings",
+      "mealPlans": "Meal Plans"
     },
     "dashboard": {
       "title": "Dashboard",
@@ -210,7 +276,9 @@
           "overview": "Overview",
           "forms": "Forms",
           "progress": "Progress",
-          "plans": "Plans"
+          "plans": "Plans",
+          "mealPlans": "Meal Plans",
+          "messages": "Messages"
         }
       }
     }
@@ -223,7 +291,8 @@
       "workoutLogs": "Workout Logs",
       "forms": "Forms",
       "coach": "My Coach",
-      "settings": "Settings"
+      "settings": "Settings",
+      "chat": "Messages"
     },
     "overview": {
       "welcome": "Welcome back, {name}!",
@@ -624,5 +693,75 @@
       "delete": "Delete account",
       "deleteConfirm": "Are you sure you want to permanently delete this account? This cannot be undone."
     }
+  },
+  "foods": {
+    "title": "Foods Library",
+    "subtitle": "Browse foods and add your own.",
+    "adminTitle": "Global Foods Library",
+    "adminSubtitle": "Add and manage global foods available to all coaches.",
+    "search": "Search foods...",
+    "allCategories": "All categories",
+    "addCustom": "Add Food",
+    "addGlobal": "Add Global Food",
+    "global": "Global",
+    "custom": "Custom",
+    "kcal": "kcal",
+    "form": {
+      "nameEn": "Name (English)",
+      "nameAr": "Name (Arabic)",
+      "category": "Category",
+      "servingLabelEn": "Serving (English)",
+      "servingLabelAr": "Serving (Arabic)",
+      "servingGrams": "Serving (g)",
+      "calories": "Calories",
+      "protein": "Protein",
+      "carbs": "Carbs",
+      "fat": "Fat",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "categories": {
+      "grains": "Grains",
+      "protein": "Protein",
+      "dairy": "Dairy",
+      "vegetables": "Vegetables",
+      "fruits": "Fruits",
+      "fats": "Fats & Nuts",
+      "beverages": "Beverages",
+      "composite": "Dishes"
+    },
+    "delete": "Delete",
+    "edit": "Edit",
+    "deleteConfirm": "Delete this food? This cannot be undone."
+  },
+  "mealPlans": {
+    "title": "Meal Plans",
+    "subtitle": "Build and assign nutrition plans.",
+    "newPlan": "New Meal Plan",
+    "empty": "No meal plans yet.",
+    "assignedTo": "Assigned to client",
+    "unassigned": "Template (unassigned)",
+    "downloadPdf": "Download PDF",
+    "kcal": "kcal",
+    "g": "g"
+  },
+  "mealPlansBuilder": {
+    "planName": "Plan name",
+    "addDay": "Add Day",
+    "addMeal": "Add Meal",
+    "addFood": "Add Food",
+    "mealName": "Meal name",
+    "time": "Time",
+    "grams": "g",
+    "kcal": "kcal",
+    "save": "Save Plan",
+    "saved": "Plan saved!"
+  },
+  "chat": {
+    "title": "Messages",
+    "subtitle": "Chat with your coach.",
+    "empty": "No messages yet. Say hello!",
+    "placeholder": "Type a message...",
+    "send": "Send"
   }
 }

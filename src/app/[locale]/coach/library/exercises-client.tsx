@@ -62,7 +62,7 @@ export function ExercisesClient({
   const name = (e: Exercise) => (locale === "ar" ? e.name_ar : e.name_en);
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-2xl">{t("title")}</h1>
