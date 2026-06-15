@@ -85,22 +85,22 @@ jobs:
 
       - name: Run all migrations against test DB
         if: steps.changed.outputs.files != ''
-        env:
-          # supabase/postgres image: supabase_admin owns the public schema and
-          # all Supabase-specific schemas (auth, extensions, vault). Running as
-          # supabase_admin avoids permission errors that occur when running as postgres.
-          # The image sets supabase_admin's password to "postgres" by default.
-          PGPASSWORD: postgres
         run: |
-          # Strip lines that are Supabase Cloud managed out-of-band:
-          # - COMMENT ON SCHEMA "public": owned by supabase_admin, not needed for CI
-          # - ALTER PUBLICATION "supabase_realtime": requires superuser on production only
+          # supabase/postgres image: supabase_admin owns public/auth/extensions/vault schemas.
+          # TCP password auth for supabase_admin is unreliable across image versions.
+          # Instead: copy each migration into the container and run via docker exec as the
+          # supabase_admin OS user, which peer-authenticates over the Unix socket (no password).
+          CONTAINER_ID=$(docker ps --filter "ancestor=supabase/postgres:15.8.1.060" --format "{{.ID}}")
+
           for file in $(ls supabase/migrations/*.sql | sort); do
             echo "Applying: $file"
+            # Strip Cloud-managed lines before copying into container
             sed -e '/^COMMENT ON SCHEMA "public"/d' \
                 -e '/^ALTER PUBLICATION "supabase_realtime"/d' \
-                "$file" \
-            | psql -h localhost -p 5432 -U supabase_admin -d testdb --set ON_ERROR_STOP=1
+                "$file" > /tmp/migration.sql
+            docker cp /tmp/migration.sql "$CONTAINER_ID:/tmp/migration.sql"
+            docker exec -u supabase_admin "$CONTAINER_ID" \
+              psql -U supabase_admin -d testdb --set ON_ERROR_STOP=1 -f /tmp/migration.sql
           done
 
       - name: No migration files changed
