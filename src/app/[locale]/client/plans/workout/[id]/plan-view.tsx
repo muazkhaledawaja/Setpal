@@ -9,9 +9,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Download } from "lucide-react";
 
 export function PlanView({ plan, locale, clientId }: { plan: PlanWithDays; locale: string; clientId: string; }) {
   const t = useTranslations("client.planView");
+  const tm = useTranslations("mealPlans");
   const router = useRouter();
   const days = plan.days ?? [];
 
@@ -23,7 +25,14 @@ export function PlanView({ plan, locale, clientId }: { plan: PlanWithDays; local
 
   return (
     <div className="p-4 sm:p-6 space-y-4 max-w-3xl mx-auto">
-      <h1 className="text-2xl">{plan.name}</h1>
+      <div className="flex items-start justify-between gap-3">
+        <h1 className="text-2xl">{plan.name}</h1>
+        <Button asChild variant="outline" size="sm">
+          <a href={`/api/pdf/workout/${plan.id}?locale=${locale}`} target="_blank" rel="noopener noreferrer">
+            <Download className="size-4 me-2" />{tm("downloadPdf")}
+          </a>
+        </Button>
+      </div>
       <Tabs defaultValue={days[0]?.id}>
         <TabsList className="flex-wrap h-auto">
           {days.map((d) => <TabsTrigger key={d.id} value={d.id}>{d.name}</TabsTrigger>)}

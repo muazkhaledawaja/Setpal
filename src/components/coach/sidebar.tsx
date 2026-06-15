@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Home, Users, Dumbbell, ClipboardList, Settings } from "lucide-react";
+import { Home, Users, Dumbbell, ClipboardList, Settings, UtensilsCrossed } from "lucide-react";
 import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/logo";
@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { key: "dashboard", href: "/coach", icon: Home },
   { key: "clients", href: "/coach/clients", icon: Users },
   { key: "library", href: "/coach/library", icon: Dumbbell },
+  { key: "mealPlans", href: "/coach/meal-plans", icon: UtensilsCrossed },
   { key: "forms", href: "/coach/forms", icon: ClipboardList },
   { key: "settings", href: "/coach/settings", icon: Settings },
 ] as const;

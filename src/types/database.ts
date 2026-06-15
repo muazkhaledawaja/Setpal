@@ -98,6 +98,117 @@ export type Database = {
         };
         Update: Partial<Database["public"]["Tables"]["exercises"]["Row"]>;
       };
+      foods: {
+        Row: {
+          id: string;
+          coach_id: string | null;
+          name_ar: string;
+          name_en: string;
+          category: "grains" | "protein" | "dairy" | "vegetables" | "fruits" | "fats" | "beverages" | "composite";
+          serving_label_ar: string | null;
+          serving_label_en: string | null;
+          serving_grams: number;
+          calories: number;
+          protein_g: number;
+          carbs_g: number;
+          fat_g: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["foods"]["Row"]> & {
+          name_ar: string;
+          name_en: string;
+          category: Database["public"]["Tables"]["foods"]["Row"]["category"];
+        };
+        Update: Partial<Database["public"]["Tables"]["foods"]["Row"]>;
+      };
+      meal_plans: {
+        Row: {
+          id: string;
+          coach_id: string;
+          client_id: string | null;
+          name: string;
+          description_ar: string | null;
+          description_en: string | null;
+          status: "active" | "archived" | "draft";
+          daily_calorie_target: number | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["meal_plans"]["Row"]> & {
+          coach_id: string;
+          name: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["meal_plans"]["Row"]>;
+      };
+      meal_plan_days: {
+        Row: {
+          id: string;
+          plan_id: string;
+          name: string;
+          order_index: number;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["meal_plan_days"]["Row"]> & {
+          plan_id: string;
+          name: string;
+          order_index: number;
+        };
+        Update: Partial<Database["public"]["Tables"]["meal_plan_days"]["Row"]>;
+      };
+      meal_plan_meals: {
+        Row: {
+          id: string;
+          day_id: string;
+          name_ar: string;
+          name_en: string;
+          order_index: number;
+          time_label: string | null;
+          notes: string | null;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["meal_plan_meals"]["Row"]> & {
+          day_id: string;
+          name_ar: string;
+          name_en: string;
+          order_index: number;
+        };
+        Update: Partial<Database["public"]["Tables"]["meal_plan_meals"]["Row"]>;
+      };
+      meal_plan_items: {
+        Row: {
+          id: string;
+          meal_id: string;
+          food_id: string;
+          order_index: number;
+          quantity_grams: number;
+          notes: string | null;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["meal_plan_items"]["Row"]> & {
+          meal_id: string;
+          food_id: string;
+          order_index: number;
+          quantity_grams: number;
+        };
+        Update: Partial<Database["public"]["Tables"]["meal_plan_items"]["Row"]>;
+      };
+      chat_messages: {
+        Row: {
+          id: string;
+          client_id: string;
+          sender_id: string;
+          body: string;
+          read_at: string | null;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["chat_messages"]["Row"]> & {
+          client_id: string;
+          sender_id: string;
+          body: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["chat_messages"]["Row"]>;
+      };
       workout_plans: {
         Row: {
           id: string;

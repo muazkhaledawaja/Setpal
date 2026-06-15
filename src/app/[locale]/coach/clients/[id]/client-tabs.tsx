@@ -3,12 +3,15 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
-import { LayoutDashboard, ClipboardList, TrendingUp, Dumbbell } from "lucide-react";
+import { LayoutDashboard, ClipboardList, TrendingUp, Dumbbell, UtensilsCrossed, MessageSquare } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import type { PlanRow } from "@/modules/workouts/workouts.types";
+import type { MealPlanRow } from "@/modules/meal-plans/meal-plans.types";
+import type { ChatMessageRow } from "@/modules/chat/chat.service";
+import { ChatThread } from "@/components/chat/chat-thread";
 
 type Status = "active" | "paused" | "ended";
 
@@ -17,20 +20,26 @@ const TABS = [
   { key: "forms", icon: ClipboardList },
   { key: "progress", icon: TrendingUp },
   { key: "plans", icon: Dumbbell },
+  { key: "mealPlans", icon: UtensilsCrossed },
+  { key: "messages", icon: MessageSquare },
 ] as const;
 
 type TabKey = typeof TABS[number]["key"];
 
 interface ClientTabsProps {
   clientId: string;
+  coachId: string;
   locale: string;
   status: Status;
   assignedPlans: PlanRow[];
+  assignedMealPlans: MealPlanRow[];
+  chatMessages: ChatMessageRow[];
 }
 
-export function ClientTabs({ clientId, locale, status, assignedPlans }: ClientTabsProps) {
+export function ClientTabs({ clientId, coachId, locale, status, assignedPlans, assignedMealPlans, chatMessages }: ClientTabsProps) {
   const t = useTranslations("coach");
   const tWorkouts = useTranslations("workouts");
+  const tMeals = useTranslations("mealPlans");
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabKey>("overview");
   const [updatingStatus, setUpdatingStatus] = useState(false);
@@ -115,6 +124,29 @@ export function ClientTabs({ clientId, locale, status, assignedPlans }: ClientTa
               </div>
             )}
           </div>
+        )}
+
+        {activeTab === "mealPlans" && (
+          <div className="space-y-4">
+            <Button asChild>
+              <Link href={`/coach/meal-plans/new?client=${clientId}`}>{tMeals("newPlan")}</Link>
+            </Button>
+            {assignedMealPlans.length === 0 ? (
+              <p className="text-muted-foreground text-sm">{tMeals("empty")}</p>
+            ) : (
+              <div className="space-y-2">
+                {assignedMealPlans.map((p) => (
+                  <Card key={p.id} className="p-3">
+                    <p className="font-medium">{p.name}</p>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === "messages" && (
+          <ChatThread clientId={clientId} currentUserId={coachId} initialMessages={chatMessages} />
         )}
       </div>
     </div>

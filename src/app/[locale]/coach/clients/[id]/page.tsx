@@ -7,6 +7,8 @@ import { requireRole } from "@/lib/auth/require-role";
 import { createClient } from "@/lib/supabase/server";
 import { ClientsService } from "@/modules/clients/clients.service";
 import { WorkoutsService } from "@/modules/workouts/workouts.service";
+import { MealPlansService } from "@/modules/meal-plans/meal-plans.service";
+import { ChatService } from "@/modules/chat/chat.service";
 import { ClientTabs } from "./client-tabs";
 
 const STATUS_STYLES = {
@@ -23,14 +25,18 @@ export default async function ClientDetailPage({
   const { locale, id } = await params;
   const t = await getTranslations("coach");
 
-  await requireRole(locale, "coach");
+  const { userId: coachId } = await requireRole(locale, "coach");
   const supabase = await createClient();
   const service = new ClientsService(supabase);
   const client = await service.getById(id);
 
   if (!client) notFound();
 
-  const assignedPlans = await new WorkoutsService(supabase).listForClient(id);
+  const [assignedPlans, assignedMealPlans, chatMessages] = await Promise.all([
+    new WorkoutsService(supabase).listForClient(id),
+    new MealPlansService(supabase).listForClient(id),
+    new ChatService(supabase).listMessages(id),
+  ]);
 
   const initials = client.profile?.full_name
     ? client.profile.full_name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
@@ -75,7 +81,15 @@ export default async function ClientDetailPage({
         </div>
       </div>
 
-      <ClientTabs clientId={id} locale={locale} status={client.status} assignedPlans={assignedPlans} />
+      <ClientTabs
+        clientId={id}
+        coachId={coachId}
+        locale={locale}
+        status={client.status}
+        assignedPlans={assignedPlans}
+        assignedMealPlans={assignedMealPlans}
+        chatMessages={chatMessages}
+      />
     </div>
   );
 }
