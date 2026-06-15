@@ -1,0 +1,89 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: sb_publishable_placeholder
+      SUPABASE_SERVICE_ROLE_KEY: placeholder_service_role_key
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+  migration-check:
+    name: Migration Check
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: testdb
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for changed migration files
+        id: changed
+        run: |
+          CHANGED=$(git diff --name-only origin/main...HEAD -- 'supabase/migrations/*.sql')
+          echo "files=$CHANGED" >> $GITHUB_OUTPUT
+
+      - name: Run migration SQL files against test DB
+        if: steps.changed.outputs.files != ''
+        env:
+          PGPASSWORD: testpassword
+        run: |
+          echo "${{ steps.changed.outputs.files }}" | sort | while read file; do
+            if [ -f "$file" ]; then
+              echo "Checking: $file"
+              psql -h localhost -U testuser -d testdb --set ON_ERROR_STOP=1 -f "$file"
+            fi
+          done
+
+      - name: No migration files changed
+        if: steps.changed.outputs.files == ''
+        run: echo "No migration files changed in this PR — skipping check."
