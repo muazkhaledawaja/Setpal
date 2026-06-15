@@ -47,7 +47,7 @@ export function FormRunner({
 
   const visibleQuestions = sortedQuestions.filter(q => {
     if (!q.conditional_logic) return true;
-    const cl = q.conditional_logic as Record<string, any>;
+    const cl = q.conditional_logic as Record<string, Record<string, unknown>>;
     const showIf = cl.show_if;
     if (!showIf) return true;
     const parentValue = responses[showIf.question_id];
@@ -64,7 +64,7 @@ export function FormRunner({
     return val !== undefined && val !== null && val !== "";
   }).length;
 
-  const [draftTimeout, setDraftTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
+  const draftTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const saveDraft = useCallback(async () => {
     try {
@@ -81,12 +81,13 @@ export function FormRunner({
   }, [clientId, assignmentId, visibleQuestions, responses, t]);
 
   useEffect(() => {
-    if (draftTimeout) clearTimeout(draftTimeout);
-    const timeout = setTimeout(() => {
+    if (draftTimeoutRef.current) clearTimeout(draftTimeoutRef.current);
+    draftTimeoutRef.current = setTimeout(() => {
       saveDraft();
     }, 3000);
-    setDraftTimeout(timeout);
-    return () => clearTimeout(timeout);
+    return () => {
+      if (draftTimeoutRef.current) clearTimeout(draftTimeoutRef.current);
+    };
   }, [responses, saveDraft]);
 
   async function handleSubmit() {
@@ -149,7 +150,7 @@ export function FormRunner({
                     : Array.isArray(val)
                       ? val.join(", ")
                       : typeof val === "object" && val !== null
-                        ? (val as any).name ?? "File uploaded"
+                        ? (val as { name?: string }).name ?? "File uploaded"
                         : String(val)
                 }
               </p>

@@ -239,18 +239,18 @@ export type Database = {
       };
       Insert: Partial<{
         id: string; template_id: string; label_ar: string; label_en: string;
-        type: string; options: any; validation: Record<string, unknown>;
+        type: string; options: { value: string; label_ar: string; label_en: string }[] | null; validation: Record<string, unknown>;
         placeholder_ar: string | null; placeholder_en: string | null;
         help_text_ar: string | null; help_text_en: string | null;
-        order_index: number; conditional_logic: any;
+        order_index: number; conditional_logic: Record<string, unknown> | null;
         created_at: string; updated_at: string;
       }> & { template_id: string; label_ar: string; label_en: string; type: string; order_index: number };
       Update: Partial<{
         id: string; template_id: string; label_ar: string; label_en: string; type: string;
-        options: any; validation: Record<string, unknown>;
+        options: { value: string; label_ar: string; label_en: string }[] | null; validation: Record<string, unknown>;
         placeholder_ar: string | null; placeholder_en: string | null;
         help_text_ar: string | null; help_text_en: string | null;
-        order_index: number; conditional_logic: any;
+        order_index: number; conditional_logic: Record<string, unknown> | null;
         created_at: string; updated_at: string;
       }>;
     };

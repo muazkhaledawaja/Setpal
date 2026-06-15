@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useRouter } from "@/i18n/routing";
 import { createClient } from "@/lib/supabase/browser";
 import { FormsService } from "@/modules/forms";
-import { CreateTemplateInput } from "@/modules/forms/forms.schemas";
+import { CreateTemplateInput, QuestionType, ConditionalLogic } from "@/modules/forms/forms.schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,14 +16,10 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import {
-  Plus, Trash2, GripVertical, Eye, Copy, ChevronUp, ChevronDown,
+  Plus, Trash2, GripVertical, ChevronUp, ChevronDown,
 } from "lucide-react";
 import { QuestionEditor } from "./question-editor";
 
-const QUESTION_TYPES_LIST = [
-  "text", "textarea", "number", "select", "multiselect",
-  "radio", "checkbox", "date", "file", "scale", "yes_no",
-] as const;
 
 interface Question {
   id: string;
@@ -64,7 +60,7 @@ export function FormBuilder({
   const [descriptionAr, setDescriptionAr] = useState(initialData?.description_ar ?? "");
   const [descriptionEn, setDescriptionEn] = useState(initialData?.description_en ?? "");
   const [formType, setFormType] = useState(initialData?.type ?? "custom");
-  const [settings, setSettings] = useState<Record<string, unknown>>(
+  const [settings] = useState<Record<string, unknown>>(
     initialData?.settings ?? { allow_draft_save: true, reminder_enabled: true }
   );
   const [questions, setQuestions] = useState<Question[]>(initialData?.questions ?? []);
@@ -120,17 +116,17 @@ export function FormBuilder({
         name, description_ar: descriptionAr || undefined,
         description_en: descriptionEn || undefined,
         type: formType as "onboarding" | "check_in" | "custom",
-        settings: Object.keys(settings).length > 0 ? settings as any : undefined,
+        settings: Object.keys(settings).length > 0 ? settings as CreateTemplateInput["settings"] : undefined,
         questions: questions.map((q) => ({
-          label_ar: q.label_ar, label_en: q.label_en, type: q.type as any,
+          label_ar: q.label_ar, label_en: q.label_en, type: q.type as QuestionType,
           options: q.options.length > 0 ? q.options : undefined,
-          validation: Object.keys(q.validation).length > 0 ? q.validation as any : undefined,
+          validation: Object.keys(q.validation).length > 0 ? q.validation as CreateTemplateInput["questions"][number]["validation"] : undefined,
           placeholder_ar: q.placeholder_ar || undefined,
           placeholder_en: q.placeholder_en || undefined,
           help_text_ar: q.help_text_ar || undefined,
           help_text_en: q.help_text_en || undefined,
           order_index: q.order_index,
-          conditional_logic: q.conditional_logic as any || undefined,
+          conditional_logic: (q.conditional_logic as ConditionalLogic) ?? undefined,
         })),
       };
 

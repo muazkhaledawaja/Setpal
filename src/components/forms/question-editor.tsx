@@ -65,7 +65,7 @@ export function QuestionEditor({
     onChange({ options: (question.options ?? []).filter((_, i) => i !== index) });
   }
 
-  const showIf = question.conditional_logic as Record<string, any> | null;
+  const showIf = question.conditional_logic as Record<string, Record<string, unknown>> | null;
 
   return (
     <div className="space-y-4">
@@ -213,7 +213,7 @@ export function QuestionEditor({
                 onCheckedChange={v => onChange({
                   conditional_logic: v ? {
                     show_if: { question_id: allQuestions.find(q => q.id !== question.id)?.id ?? "", operator: "equals", value: "" }
-                  } as any : null
+                  } : null
                 })}
               />
               {t("showIf")}
@@ -222,8 +222,8 @@ export function QuestionEditor({
           {showIf && (
             <div className="space-y-2 pl-4">
               <Select
-                value={showIf.show_if?.question_id ?? ""}
-                onValueChange={v => onChange({ conditional_logic: { show_if: { ...showIf.show_if, question_id: v } } } as any)}
+                value={(showIf.show_if?.question_id as string) ?? ""}
+                onValueChange={v => onChange({ conditional_logic: { show_if: { ...showIf.show_if, question_id: v } } })}
               >
                 <SelectTrigger><SelectValue placeholder={t("selectQuestion")} /></SelectTrigger>
                 <SelectContent>
@@ -235,8 +235,8 @@ export function QuestionEditor({
                 </SelectContent>
               </Select>
               <Select
-                value={showIf.show_if?.operator ?? "equals"}
-                onValueChange={v => onChange({ conditional_logic: { show_if: { ...showIf.show_if, operator: v } } } as any)}
+                value={(showIf.show_if?.operator as string) ?? "equals"}
+                onValueChange={v => onChange({ conditional_logic: { show_if: { ...showIf.show_if, operator: v } } })}
               >
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
@@ -247,8 +247,8 @@ export function QuestionEditor({
               </Select>
               <Input
                 placeholder="Value"
-                value={showIf.show_if?.value as string ?? ""}
-                onChange={e => onChange({ conditional_logic: { show_if: { ...showIf.show_if, value: e.target.value } } } as any)}
+                value={(showIf.show_if?.value as string) ?? ""}
+                onChange={e => onChange({ conditional_logic: { show_if: { ...showIf.show_if, value: e.target.value } } })}
               />
             </div>
           )}
