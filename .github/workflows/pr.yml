@@ -83,15 +83,25 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
+      - name: Grant postgres CREATE on public schema
+        run: |
+          # In supabase/postgres, supabase_admin owns the public schema, not postgres.
+          # postgres has USAGE but not CREATE, so DDL fails. We use docker exec to run
+          # as the container's postgres OS user, which peer-authenticates as supabase_admin
+          # (via pg_ident supabase_map), granting CREATE to postgres over the Unix socket.
+          CONTAINER_ID=$(docker ps --filter "ancestor=supabase/postgres:15.8.1.060" --format "{{.ID}}")
+          docker exec -u postgres "$CONTAINER_ID" \
+            psql -U supabase_admin -d testdb \
+              -c "GRANT CREATE ON SCHEMA public TO postgres;" \
+              -c "GRANT ALL ON SCHEMA public TO postgres;"
+
       - name: Run all migrations against test DB
         if: steps.changed.outputs.files != ''
         env:
           PGPASSWORD: testpassword
         run: |
-          # The supabase/postgres image pre-owns the public schema and supabase_realtime
-          # publication under supabase_admin. Strip those lines before applying so that
-          # postgres (which has TCP access) can run the rest of the migration cleanly.
-          # These are no-ops on the real Supabase cloud anyway — they exist only in dumps.
+          # Strip lines only supabase_admin can run (schema comment, publication ownership).
+          # These are pg_dump artifacts that Supabase Cloud manages out-of-band.
           for file in $(ls supabase/migrations/*.sql | sort); do
             echo "Applying: $file"
             sed -e '/^COMMENT ON SCHEMA "public"/d' \
