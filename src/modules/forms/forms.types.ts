@@ -90,6 +90,26 @@ export interface QuestionStat {
   option_distribution?: Record<string, number> | null;
 }
 
+// Matches the flat columns exposed by the v_client_assignments view
+// (security_invoker = true, so it respects RLS).
+export interface ClientAssignmentListItem {
+  assignment_id: string;
+  client_id: string;
+  template_id: string;
+  template_version: number;
+  status: FormAssignmentRow["status"];
+  due_at: string | null;
+  started_at: string | null;
+  completed_at: string | null;
+  assigned_at: string;
+  template_name: string;
+  template_description_ar: string | null;
+  template_description_en: string | null;
+  template_type: "onboarding" | "check_in" | "custom";
+  responses_count: number;
+  total_questions: number;
+}
+
 export interface ClientFormDashboard {
   due_soon: FormAssignmentWithTemplate[];
   in_progress: FormAssignmentWithTemplate[];

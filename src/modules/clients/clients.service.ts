@@ -19,6 +19,15 @@ export type ClientWithProfile = ClientRow & {
   profile: Pick<ProfileRow, "full_name" | "avatar_url" | "locale"> | null;
 };
 
+export type MyCoach = {
+  id: string;
+  full_name: string | null;
+  avatar_url: string | null;
+  bio_ar: string | null;
+  bio_en: string | null;
+  specializations: string[];
+};
+
 // Supabase's generic client returns `never` for many operations when types are hand-written stubs.
 // We use `any` at the boundary and return strongly-typed values from each method.
 type SB = SupabaseClient<any>;
@@ -128,26 +137,54 @@ export class ClientsService {
     return (data ?? null) as InviteRow | null;
   }
 
-  async acceptInvite(token: string, newUserId: string): Promise<void> {
-    const invite = await this.getInviteByToken(token);
-    if (!invite) throw new InvalidInviteTokenError();
+  // Accepts the invite for the currently authenticated client. The whole
+  // operation (validate token -> mark accepted -> create the clients row) runs
+  // atomically inside the accept_client_invite SECURITY DEFINER RPC, so we
+  // never need a permissive client self-INSERT policy on `clients`.
+  async acceptInvite(token: string): Promise<void> {
+    const { error } = await this.db.rpc("accept_client_invite", { invite_token: token });
+    if (error) {
+      if (/invalid|expired|not authenticated/i.test(error.message)) {
+        throw new InvalidInviteTokenError();
+      }
+      throw new ClientsError(error.message, "create_client_failed");
+    }
+  }
 
-    const { error: inviteError } = await this.db
-      .from("client_invites")
-      .update({ status: "accepted", accepted_at: new Date().toISOString() })
-      .eq("id", invite.id);
-
-    if (inviteError) throw new ClientsError(inviteError.message, "accept_invite_failed");
-
-    const { error: clientError } = await this.db
+  // The coach for the given client, with profile + bio/specializations.
+  // Two-step query: the clients.coach_id FK targets profiles, not coaches, so
+  // a `clients -> coaches` PostgREST embed may not auto-resolve.
+  async getMyCoach(clientId: string): Promise<MyCoach | null> {
+    const { data: row } = await this.db
       .from("clients")
-      .insert({
-        id: newUserId,
-        coach_id: invite.coach_id,
-        status: "active",
-        start_date: new Date().toISOString().split("T")[0],
-      });
+      .select("coach_id")
+      .eq("id", clientId)
+      .single();
 
-    if (clientError) throw new ClientsError(clientError.message, "create_client_failed");
+    const coachId = (row as Pick<ClientRow, "coach_id"> | null)?.coach_id;
+    if (!coachId) return null;
+
+    const { data: coach } = await this.db
+      .from("coaches")
+      .select("id, bio_ar, bio_en, specializations, profile:profiles(full_name, avatar_url)")
+      .eq("id", coachId)
+      .single();
+
+    if (!coach) return null;
+    const c = coach as any;
+    // PostgREST embeds a to-one relation as either an object or a single-element array.
+    const profile = (Array.isArray(c.profile) ? c.profile[0] : c.profile) as
+      | Pick<ProfileRow, "full_name" | "avatar_url">
+      | null
+      | undefined;
+
+    return {
+      id: c.id,
+      full_name: profile?.full_name ?? null,
+      avatar_url: profile?.avatar_url ?? null,
+      bio_ar: c.bio_ar ?? null,
+      bio_en: c.bio_en ?? null,
+      specializations: c.specializations ?? [],
+    };
   }
 }

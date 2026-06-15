@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const service = new ClientsService(supabase);
-    await service.acceptInvite(token, user.id);
+    await service.acceptInvite(token);
     return NextResponse.json({ ok: true });
   } catch (err) {
     if (err instanceof InvalidInviteTokenError) {

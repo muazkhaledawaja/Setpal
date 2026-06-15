@@ -14,16 +14,15 @@ export default async function AdminDashboardPage({
 
   const supabase = await createClient();
   const service = new AdminService(supabase);
-  const users = await service.listUsers();
-
-  const pending = users.filter((u) => u.status === "pending").length;
-  const active = users.filter((u) => u.status === "active").length;
-  const coaches = users.filter((u) => u.role === "coach").length;
+  const s = await service.getDashboardStats();
 
   const stats = [
-    { label: t("stats.pending"), value: pending },
-    { label: t("stats.active"), value: active },
-    { label: t("stats.coaches"), value: coaches },
+    { label: t("stats.pending"), value: s.pending_approvals },
+    { label: t("stats.activeUsers"), value: s.active_users },
+    { label: t("stats.activeCoaches"), value: s.active_coaches },
+    { label: t("stats.clients"), value: s.total_clients },
+    { label: t("stats.totalUsers"), value: s.total_users },
+    { label: t("stats.recentSignups"), value: s.recent_signups },
   ];
 
   return (

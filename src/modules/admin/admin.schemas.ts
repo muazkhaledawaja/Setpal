@@ -21,4 +21,16 @@ export interface AdminUser {
   created_at: string;
   last_sign_in: string | null;
   client_count: number;
+  coach_id: string | null;
+}
+
+export interface DashboardStats {
+  total_users: number;
+  pending_approvals: number;
+  active_users: number;
+  suspended_users: number;
+  total_coaches: number;
+  active_coaches: number;
+  total_clients: number;
+  recent_signups: number;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { LayoutDashboard, Users } from "lucide-react";
+import { LayoutDashboard, Users, Dumbbell, Settings } from "lucide-react";
 import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/logo";
@@ -9,6 +9,8 @@ import { Logo } from "@/components/ui/logo";
 const NAV_ITEMS = [
   { key: "dashboard", href: "/admin", icon: LayoutDashboard },
   { key: "users", href: "/admin/users", icon: Users },
+  { key: "library", href: "/admin/library", icon: Dumbbell },
+  { key: "settings", href: "/admin/settings", icon: Settings },
 ] as const;
 
 export function AdminSidebar() {

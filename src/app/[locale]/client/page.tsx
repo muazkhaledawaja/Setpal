@@ -1,11 +1,14 @@
 import { requireRole } from "@/lib/auth/require-role";
 import { createClient } from "@/lib/supabase/server";
 import { WorkoutsService } from "@/modules/workouts/workouts.service";
+import { FormsService } from "@/modules/forms";
+import { ClientsService } from "@/modules/clients/clients.service";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dumbbell, ClipboardList } from "lucide-react";
+import { MyCoachCard } from "@/components/client/my-coach-card";
 
 export default async function ClientOverview({
   params,
@@ -17,6 +20,8 @@ export default async function ClientOverview({
   const t = await getTranslations("client.overview");
   const supabase = await createClient();
   const plans = await new WorkoutsService(supabase).listForClient(userId);
+  const pendingForms = await new FormsService(supabase).countPendingForms(userId);
+  const coach = await new ClientsService(supabase).getMyCoach(userId);
 
   return (
     <div className="p-4 sm:p-6 space-y-6 max-w-4xl mx-auto">
@@ -37,8 +42,13 @@ export default async function ClientOverview({
         <Card className="p-5">
           <ClipboardList className="size-5 text-warning mb-2" />
           <p className="text-sm text-muted-foreground">{t("pendingForms")}</p>
-          <p className="text-3xl font-semibold">0</p>
+          <p className="text-3xl font-semibold">{pendingForms}</p>
+          <Button asChild variant="link" className="px-0 mt-1">
+            <Link href="/client/forms">{t("viewForms")}</Link>
+          </Button>
         </Card>
+
+        <MyCoachCard coach={coach} />
       </div>
 
       <div>

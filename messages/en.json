@@ -222,6 +222,7 @@
       "plans": "Plans",
       "workoutLogs": "Workout Logs",
       "forms": "Forms",
+      "coach": "My Coach",
       "settings": "Settings"
     },
     "overview": {
@@ -232,7 +233,31 @@
       "recentActivity": "Recent Activity",
       "noActivity": "No recent activity yet.",
       "planAssigned": "Workout plan assigned",
-      "viewPlans": "View Plans"
+      "viewPlans": "View Plans",
+      "viewForms": "View Forms"
+    },
+    "coach": {
+      "title": "My Coach",
+      "subtitle": "Your coach's profile and details.",
+      "none": "You don't have a coach assigned yet.",
+      "bio": "About",
+      "specializations": "Specializations",
+      "view": "View profile"
+    },
+    "forms": {
+      "title": "My Forms",
+      "subtitle": "Forms your coach has assigned to you.",
+      "empty": "No forms assigned yet.",
+      "due": "Due {date}",
+      "noDue": "No due date",
+      "open": "Open",
+      "status": {
+        "pending": "Pending",
+        "in_progress": "In Progress",
+        "completed": "Completed",
+        "overdue": "Overdue",
+        "skipped": "Skipped"
+      }
     },
     "plans": {
       "title": "Your Active Plans",
@@ -450,6 +475,10 @@
       "title": "Settings",
       "subtitle": "Manage your account."
     },
+    "admin": {
+      "title": "Settings",
+      "subtitle": "Manage your account."
+    },
     "password": {
       "title": "Password",
       "subtitle": "Change your account password.",
@@ -469,9 +498,17 @@
   "library": {
     "title": "Exercise Library",
     "subtitle": "Browse exercises and add your own.",
+    "adminTitle": "Global Exercise Library",
+    "adminSubtitle": "Add and manage global exercises available to all coaches.",
     "search": "Search exercises...",
     "allGroups": "All muscle groups",
     "addCustom": "Add Exercise",
+    "addGlobal": "Add Global Exercise",
+    "editExercise": "Edit Exercise",
+    "deleteExercise": "Delete Exercise",
+    "deleteConfirm": "Delete \"{name}\"? This cannot be undone.",
+    "saved": "Saved!",
+    "deleted": "Exercise deleted.",
     "edit": "Edit",
     "delete": "Delete",
     "global": "Global",
@@ -530,7 +567,9 @@
   "admin": {
     "nav": {
       "dashboard": "Dashboard",
-      "users": "Users"
+      "users": "Users",
+      "library": "Library",
+      "settings": "Settings"
     },
     "dashboard": {
       "title": "Admin",
@@ -540,7 +579,12 @@
     "stats": {
       "pending": "Pending approval",
       "active": "Active users",
-      "coaches": "Coaches"
+      "coaches": "Coaches",
+      "totalUsers": "Total users",
+      "activeUsers": "Active users",
+      "activeCoaches": "Active coaches",
+      "clients": "Clients",
+      "recentSignups": "New (7 days)"
     },
     "users": {
       "title": "Users",
@@ -548,7 +592,11 @@
       "search": "Search by name or email",
       "allRoles": "All roles",
       "allStatuses": "All statuses",
-      "empty": "No users match your filters."
+      "empty": "No users match your filters.",
+      "otherGroup": "Admins & unassigned",
+      "noClients": "No clients yet.",
+      "expand": "Expand",
+      "collapse": "Collapse"
     },
     "table": {
       "name": "Name",

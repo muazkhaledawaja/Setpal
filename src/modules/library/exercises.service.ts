@@ -32,6 +32,43 @@ export class ExercisesService {
     return (data ?? []) as ExerciseRow[];
   }
 
+  // Global (coach_id null) library, optional filters. Admin-facing.
+  async listGlobal(filters: ExerciseFilters = {}): Promise<ExerciseRow[]> {
+    let query = this.db
+      .from("exercises")
+      .select("*")
+      .is("coach_id", null)
+      .order("name_en", { ascending: true });
+
+    if (filters.muscleGroup) query = query.eq("muscle_group", filters.muscleGroup);
+    if (filters.search) {
+      query = query.or(`name_en.ilike.%${filters.search}%,name_ar.ilike.%${filters.search}%`);
+    }
+
+    const { data, error } = await query;
+    if (error) throw new ExercisesError(error.message, "list_failed");
+    return (data ?? []) as ExerciseRow[];
+  }
+
+  // Creates a global exercise (coach_id null). Admin-only via RLS.
+  async createGlobal(input: CreateExerciseInput): Promise<ExerciseRow> {
+    const { data, error } = await this.db
+      .from("exercises")
+      .insert({
+        coach_id: null,
+        name_ar: input.name_ar,
+        name_en: input.name_en,
+        muscle_group: input.muscle_group,
+        equipment: input.equipment || null,
+        video_url: input.video_url || null,
+        thumbnail_url: input.thumbnail_url || null,
+      })
+      .select()
+      .single();
+    if (error || !data) throw new ExercisesError(error?.message ?? "insert failed", "create_failed");
+    return data as ExerciseRow;
+  }
+
   async createCustom(coachId: string, input: CreateExerciseInput): Promise<ExerciseRow> {
     const { data, error } = await this.db
       .from("exercises")

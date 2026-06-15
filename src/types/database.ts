@@ -337,7 +337,25 @@ export type Database = {
           created_at: string;
           last_sign_in: string | null;
           client_count: number;
+          coach_id: string | null;
         }[];
+      };
+      admin_dashboard_stats: {
+        Args: Record<string, never>;
+        Returns: {
+          total_users: number;
+          pending_approvals: number;
+          active_users: number;
+          suspended_users: number;
+          total_coaches: number;
+          active_coaches: number;
+          total_clients: number;
+          recent_signups: number;
+        }[];
+      };
+      accept_client_invite: {
+        Args: { invite_token: string };
+        Returns: void;
       };
       approve_user: {
         Args: { target: string; new_role: string };

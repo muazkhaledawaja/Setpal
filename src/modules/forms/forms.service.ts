@@ -10,6 +10,7 @@ import type {
   FormAssignmentRow, FormAssignmentInsert, FormResponseRow, FormFileRow,
   FormTemplateWithQuestions, FormAssignmentWithTemplate, FormAssignmentForClient,
   ResponseWithQuestion, TemplateAnalytics, ClientFormDashboard,
+  ClientAssignmentListItem,
 } from "./forms.types";
 import {
   TemplateNotFoundError, TemplateAccessDeniedError, QuestionNotFoundError,
@@ -313,6 +314,27 @@ export class FormsService {
       completed: assignments.filter(a => a.status === "completed"),
       overdue: assignments.filter(a => a.status === "overdue"),
     };
+  }
+
+  // Flat list of a client's assignments, read directly from the
+  // v_client_assignments view (correctly typed via ClientAssignmentListItem).
+  async listClientAssignments(clientId: string): Promise<ClientAssignmentListItem[]> {
+    const { data, error } = await this.db
+      .from("v_client_assignments")
+      .select("*")
+      .eq("client_id", clientId)
+      .order("due_at", { ascending: true, nullsFirst: false });
+
+    if (error) throw new FormsError(error.message, "LIST_CLIENT_ASSIGNMENTS_FAILED", 500);
+    return (data ?? []) as ClientAssignmentListItem[];
+  }
+
+  // Count of forms still needing the client's attention.
+  async countPendingForms(clientId: string): Promise<number> {
+    const rows = await this.listClientAssignments(clientId);
+    return rows.filter((r) =>
+      r.status === "pending" || r.status === "in_progress" || r.status === "overdue"
+    ).length;
   }
 
   async getAssignmentForClient(assignmentId: string, clientId: string): Promise<FormAssignmentForClient | null> {

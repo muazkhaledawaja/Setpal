@@ -1,6 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/types/database";
-import type { AdminUser, ListUsersQuery } from "./admin.schemas";
+import type { AdminUser, ListUsersQuery, DashboardStats } from "./admin.schemas";
 
 // rpc() calls use an untyped client, matching the repo convention in
 // forms.service.ts (the generated Functions types aren't available yet).
@@ -41,6 +41,13 @@ export class AdminService {
     }
 
     return users;
+  }
+
+  async getDashboardStats(): Promise<DashboardStats> {
+    const { data, error } = await this.db.rpc("admin_dashboard_stats");
+    if (error) throw error;
+    const row = Array.isArray(data) ? data[0] : data;
+    return row as DashboardStats;
   }
 
   async approveUser(

@@ -13,7 +13,7 @@ export async function acceptInviteAction(
 
   try {
     const service = new ClientsService(supabase);
-    await service.acceptInvite(token, user.id);
+    await service.acceptInvite(token);
     return { ok: true };
   } catch (err) {
     if (err instanceof InvalidInviteTokenError) return { ok: false, error: "invalid_token" };
