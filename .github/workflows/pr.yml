@@ -87,12 +87,11 @@ jobs:
         run: |
           # In supabase/postgres, supabase_admin owns the public schema, not postgres.
           # postgres has USAGE but not CREATE, so DDL fails. We use docker exec to run
-          # as the container's postgres OS user, which peer-authenticates as supabase_admin
-          # (via pg_ident supabase_map), granting CREATE to postgres over the Unix socket.
+          # as the container's postgres OS user, which peer-authenticates as postgres
+          # over the Unix socket. As a superuser, postgres can then grant itself CREATE.
           CONTAINER_ID=$(docker ps --filter "ancestor=supabase/postgres:15.8.1.060" --format "{{.ID}}")
           docker exec -u postgres "$CONTAINER_ID" \
-            psql -U supabase_admin -d testdb \
-              -c "GRANT CREATE ON SCHEMA public TO postgres;" \
+            psql -U postgres -d testdb \
               -c "GRANT ALL ON SCHEMA public TO postgres;"
 
       - name: Run all migrations against test DB
