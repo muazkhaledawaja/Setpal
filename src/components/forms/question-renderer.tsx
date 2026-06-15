@@ -9,7 +9,6 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Upload, FileText } from "lucide-react";
-import { createClient } from "@/lib/supabase/browser";
 import { StorageService } from "@/modules/storage/storage.service";
 import { useRef, useState } from "react";
 
@@ -158,7 +157,7 @@ export function QuestionRenderer({
         );
 
       case "file":
-        return <FileUploadInput questionId={question.id} clientId={clientId} value={value as any} onChange={onChange} locale={locale} />;
+        return <FileUploadInput questionId={question.id} clientId={clientId} value={value as { path: string; name: string; mime: string; size: number } | null} onChange={onChange} locale={locale} />;
 
       case "scale":
         const currentVal = (value as number) ?? 0;

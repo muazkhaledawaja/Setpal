@@ -46,6 +46,7 @@ function UserRow({
   leading,
   onApprove,
   onSetStatus,
+  onDelete,
 }: {
   u: AdminUser;
   t: T;
