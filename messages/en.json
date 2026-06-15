@@ -620,7 +620,9 @@
     "actions": {
       "approveAs": "Approve as",
       "suspend": "Suspend",
-      "reactivate": "Reactivate"
+      "reactivate": "Reactivate",
+      "delete": "Delete account",
+      "deleteConfirm": "Are you sure you want to permanently delete this account? This cannot be undone."
     }
   }
 }

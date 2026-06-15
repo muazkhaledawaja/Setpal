@@ -80,4 +80,9 @@ export class AdminService {
     });
     if (error) throw error;
   }
+
+  async deleteUser(userId: string): Promise<void> {
+    const { error } = await this.db.rpc("delete_user", { target: userId });
+    if (error) throw error;
+  }
 }

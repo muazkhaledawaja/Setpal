@@ -18,6 +18,7 @@ import {
 import {
   approveUserAction,
   setStatusAction,
+  deleteUserAction,
 } from "@/app/[locale]/admin/users/actions";
 
 type RoleFilter = "all" | "admin" | "coach" | "client";
@@ -53,6 +54,7 @@ function UserRow({
   leading?: React.ReactNode;
   onApprove: (id: string, r: "coach" | "client" | "admin") => void;
   onSetStatus: (id: string, s: "active" | "suspended") => void;
+  onDelete: (id: string) => void;
 }) {
   return (
     <tr className="border-t border-border">
@@ -103,6 +105,13 @@ function UserRow({
                 </DropdownMenuItem>
               )
             )}
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className="text-destructive"
+              onClick={() => onDelete(u.id)}
+            >
+              {t("actions.delete")}
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </td>
@@ -177,6 +186,10 @@ export function UsersTable({ initialUsers }: { initialUsers: AdminUser[] }) {
   function setUserStatus(id: string, s: "active" | "suspended") {
     startTransition(() => setStatusAction(id, s));
   }
+  function deleteUser(id: string) {
+    if (!window.confirm(t("actions.deleteConfirm"))) return;
+    startTransition(() => deleteUserAction(id));
+  }
 
   const isGrouped = role === "all";
 
@@ -196,6 +209,7 @@ export function UsersTable({ initialUsers }: { initialUsers: AdminUser[] }) {
           isPending={isPending}
           onApprove={approve}
           onSetStatus={setUserStatus}
+          onDelete={deleteUser}
           leading={
             <button
               type="button"
@@ -228,6 +242,7 @@ export function UsersTable({ initialUsers }: { initialUsers: AdminUser[] }) {
                 indent
                 onApprove={approve}
                 onSetStatus={setUserStatus}
+                onDelete={deleteUser}
               />
             );
           }
@@ -253,6 +268,7 @@ export function UsersTable({ initialUsers }: { initialUsers: AdminUser[] }) {
             isPending={isPending}
             onApprove={approve}
             onSetStatus={setUserStatus}
+            onDelete={deleteUser}
           />
         );
       }
@@ -323,6 +339,7 @@ export function UsersTable({ initialUsers }: { initialUsers: AdminUser[] }) {
                   isPending={isPending}
                   onApprove={approve}
                   onSetStatus={setUserStatus}
+                  onDelete={deleteUser}
                 />
               ))
             )}

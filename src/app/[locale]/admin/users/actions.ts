@@ -18,3 +18,9 @@ export async function setStatusAction(userId: string, status: string) {
   await new AdminService(supabase).setStatus(userId, parsed);
   revalidatePath("/[locale]/admin/users", "page");
 }
+
+export async function deleteUserAction(userId: string) {
+  const supabase = await createClient();
+  await new AdminService(supabase).deleteUser(userId);
+  revalidatePath("/[locale]/admin/users", "page");
+}
