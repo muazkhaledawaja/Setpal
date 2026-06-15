@@ -47,7 +47,7 @@ export function FormRunner({
 
   const visibleQuestions = sortedQuestions.filter(q => {
     if (!q.conditional_logic) return true;
-    const cl = q.conditional_logic as Record<string, Record<string, unknown>>;
+    const cl = q.conditional_logic as { show_if?: { question_id: string; operator: string; value: unknown } };
     const showIf = cl.show_if;
     if (!showIf) return true;
     const parentValue = responses[showIf.question_id];
