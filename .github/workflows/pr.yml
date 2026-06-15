@@ -83,24 +83,21 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Prepare test DB
-        env:
-          PGPASSWORD: testpassword
-        run: |
-          # supabase/postgres owns the public schema under supabase_admin, not postgres.
-          # Transfer ownership so the migration's COMMENT ON SCHEMA public succeeds.
-          psql -h localhost -p 5432 -U postgres -d testdb -c "ALTER SCHEMA public OWNER TO postgres;"
-
       - name: Run all migrations against test DB
         if: steps.changed.outputs.files != ''
         env:
           PGPASSWORD: testpassword
         run: |
-          # Run the full migration stack in order so later migrations have their dependencies.
-          # The test DB is empty, so this also validates the entire history is self-consistent.
+          # The supabase/postgres image pre-owns the public schema and supabase_realtime
+          # publication under supabase_admin. Strip those lines before applying so that
+          # postgres (which has TCP access) can run the rest of the migration cleanly.
+          # These are no-ops on the real Supabase cloud anyway — they exist only in dumps.
           for file in $(ls supabase/migrations/*.sql | sort); do
             echo "Applying: $file"
-            psql -h localhost -p 5432 -U postgres -d testdb --set ON_ERROR_STOP=1 -f "$file"
+            sed -e '/^COMMENT ON SCHEMA "public"/d' \
+                -e '/^ALTER PUBLICATION "supabase_realtime"/d' \
+                "$file" \
+            | psql -h localhost -p 5432 -U postgres -d testdb --set ON_ERROR_STOP=1
           done
 
       - name: No migration files changed
