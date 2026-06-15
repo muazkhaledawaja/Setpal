@@ -70,7 +70,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install PostgreSQL client
-        run: sudo apt-get install -y postgresql-client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
 
       - name: Check for changed migration files
         id: changed
