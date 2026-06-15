@@ -83,30 +83,24 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Grant postgres CREATE on public schema
-        run: |
-          # In supabase/postgres, supabase_admin owns the public schema, not postgres.
-          # postgres has USAGE but not CREATE, so DDL fails. We use docker exec to run
-          # as the container's postgres OS user, which peer-authenticates as postgres
-          # over the Unix socket. As a superuser, postgres can then grant itself CREATE.
-          CONTAINER_ID=$(docker ps --filter "ancestor=supabase/postgres:15.8.1.060" --format "{{.ID}}")
-          docker exec -u postgres "$CONTAINER_ID" \
-            psql -U postgres -d testdb \
-              -c "GRANT ALL ON SCHEMA public TO postgres;"
-
       - name: Run all migrations against test DB
         if: steps.changed.outputs.files != ''
         env:
-          PGPASSWORD: testpassword
+          # supabase/postgres image: supabase_admin owns the public schema and
+          # all Supabase-specific schemas (auth, extensions, vault). Running as
+          # supabase_admin avoids permission errors that occur when running as postgres.
+          # The image sets supabase_admin's password to "postgres" by default.
+          PGPASSWORD: postgres
         run: |
-          # Strip lines only supabase_admin can run (schema comment, publication ownership).
-          # These are pg_dump artifacts that Supabase Cloud manages out-of-band.
+          # Strip lines that are Supabase Cloud managed out-of-band:
+          # - COMMENT ON SCHEMA "public": owned by supabase_admin, not needed for CI
+          # - ALTER PUBLICATION "supabase_realtime": requires superuser on production only
           for file in $(ls supabase/migrations/*.sql | sort); do
             echo "Applying: $file"
             sed -e '/^COMMENT ON SCHEMA "public"/d' \
                 -e '/^ALTER PUBLICATION "supabase_realtime"/d' \
                 "$file" \
-            | psql -h localhost -p 5432 -U postgres -d testdb --set ON_ERROR_STOP=1
+            | psql -h localhost -p 5432 -U supabase_admin -d testdb --set ON_ERROR_STOP=1
           done
 
       - name: No migration files changed
