@@ -18,8 +18,8 @@ create table if not exists public.foods (
   updated_at      timestamptz not null default now()
 );
 
-create index foods_coach_id_idx on public.foods(coach_id);
-create index foods_category_idx on public.foods(category);
+create index if not exists foods_coach_id_idx on public.foods(coach_id);
+create index if not exists foods_category_idx on public.foods(category);
 
 alter table public.foods enable row level security;
 

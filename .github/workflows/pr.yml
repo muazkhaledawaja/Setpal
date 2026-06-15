@@ -57,11 +57,10 @@ jobs:
       postgres:
         image: supabase/postgres:15.8.1.060
         env:
-          POSTGRES_USER: testuser
           POSTGRES_PASSWORD: testpassword
           POSTGRES_DB: testdb
         options: >-
-          --health-cmd pg_isready
+          --health-cmd "pg_isready -U postgres"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -93,7 +92,7 @@ jobs:
           # The test DB is empty, so this also validates the entire history is self-consistent.
           for file in $(ls supabase/migrations/*.sql | sort); do
             echo "Applying: $file"
-            psql -h localhost -p 5432 -U testuser -d testdb --set ON_ERROR_STOP=1 -f "$file"
+            psql -h localhost -p 5432 -U postgres -d testdb --set ON_ERROR_STOP=1 -f "$file"
           done
 
       - name: No migration files changed

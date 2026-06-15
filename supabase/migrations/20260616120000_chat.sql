@@ -9,7 +9,7 @@ create table if not exists public.chat_messages (
   read_at    timestamptz,
   created_at timestamptz not null default now()
 );
-create index chat_messages_client_id_idx on public.chat_messages(client_id, created_at);
+create index if not exists chat_messages_client_id_idx on public.chat_messages(client_id, created_at);
 alter table public.chat_messages enable row level security;
 
 -- Client sees and sends in their own thread.
@@ -43,5 +43,15 @@ create policy "chat_coach_update"
   using (exists (select 1 from public.clients c
                  where c.id = chat_messages.client_id and c.coach_id = auth.uid()));
 
--- Enable realtime delivery for this table.
-alter publication supabase_realtime add table public.chat_messages;
+-- Enable realtime delivery for this table (idempotent: skip if already a member).
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname = 'supabase_realtime'
+      and schemaname = 'public'
+      and tablename = 'chat_messages'
+  ) then
+    alter publication supabase_realtime add table public.chat_messages;
+  end if;
+end $$;

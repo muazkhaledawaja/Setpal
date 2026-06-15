@@ -13,8 +13,8 @@ create table if not exists public.meal_plans (
   created_at           timestamptz not null default now(),
   updated_at           timestamptz not null default now()
 );
-create index meal_plans_coach_id_idx on public.meal_plans(coach_id);
-create index meal_plans_client_id_idx on public.meal_plans(client_id);
+create index if not exists meal_plans_coach_id_idx on public.meal_plans(coach_id);
+create index if not exists meal_plans_client_id_idx on public.meal_plans(client_id);
 alter table public.meal_plans enable row level security;
 
 create policy "meal_plans_coach_all"
@@ -33,7 +33,7 @@ create table if not exists public.meal_plan_days (
   order_index int not null,
   created_at  timestamptz not null default now()
 );
-create index meal_plan_days_plan_id_idx on public.meal_plan_days(plan_id);
+create index if not exists meal_plan_days_plan_id_idx on public.meal_plan_days(plan_id);
 alter table public.meal_plan_days enable row level security;
 
 create policy "meal_plan_days_coach_all"
@@ -59,7 +59,7 @@ create table if not exists public.meal_plan_meals (
   notes       text,
   created_at  timestamptz not null default now()
 );
-create index meal_plan_meals_day_id_idx on public.meal_plan_meals(day_id);
+create index if not exists meal_plan_meals_day_id_idx on public.meal_plan_meals(day_id);
 alter table public.meal_plan_meals enable row level security;
 
 create policy "meal_plan_meals_coach_all"
@@ -87,7 +87,7 @@ create table if not exists public.meal_plan_items (
   notes          text,
   created_at     timestamptz not null default now()
 );
-create index meal_plan_items_meal_id_idx on public.meal_plan_items(meal_id);
+create index if not exists meal_plan_items_meal_id_idx on public.meal_plan_items(meal_id);
 alter table public.meal_plan_items enable row level security;
 
 create policy "meal_plan_items_coach_all"
