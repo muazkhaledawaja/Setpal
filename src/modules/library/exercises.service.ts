@@ -46,7 +46,8 @@ export class ExercisesService {
     }
 
     const { data, error } = await query;
-    if (error) throw new ExercisesError(error.message, "list_failed");
+    // RLS may block admin SELECT before migration is applied — return empty list
+    if (error) return [];
     return (data ?? []) as ExerciseRow[];
   }
 

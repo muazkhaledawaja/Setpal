@@ -325,7 +325,11 @@ export class FormsService {
       .eq("client_id", clientId)
       .order("due_at", { ascending: true, nullsFirst: false });
 
-    if (error) throw new FormsError(error.message, "LIST_CLIENT_ASSIGNMENTS_FAILED", 500);
+    // View doesn't exist yet (migration pending) — return empty list instead of crashing
+    if (error) {
+      if (error.code === "42P01" || error.code === "PGRST200") return [];
+      throw new FormsError(error.message, "LIST_CLIENT_ASSIGNMENTS_FAILED", 500);
+    }
     return (data ?? []) as ClientAssignmentListItem[];
   }
 

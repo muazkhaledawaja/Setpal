@@ -21,7 +21,10 @@ export class AdminService {
 
   async listUsers(query: ListUsersQuery = {}): Promise<AdminUser[]> {
     const { data, error } = await this.db.rpc("admin_list_users");
-    if (error) throw error;
+    if (error) {
+      if ((error as any).code === "PGRST202") return [];
+      throw error;
+    }
 
     let users = (data ?? []) as AdminUser[];
 
@@ -45,7 +48,13 @@ export class AdminService {
 
   async getDashboardStats(): Promise<DashboardStats> {
     const { data, error } = await this.db.rpc("admin_dashboard_stats");
-    if (error) throw error;
+    // PGRST202 = function not found (migration not yet applied) — return zeros so the page still renders
+    if (error) {
+      if ((error as any).code === "PGRST202") {
+        return { total_users: 0, pending_approvals: 0, active_users: 0, suspended_users: 0, total_coaches: 0, active_coaches: 0, total_clients: 0, recent_signups: 0 };
+      }
+      throw error;
+    }
     const row = Array.isArray(data) ? data[0] : data;
     return row as DashboardStats;
   }

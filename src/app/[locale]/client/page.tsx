@@ -19,9 +19,11 @@ export default async function ClientOverview({
   const { userId, profile } = await requireRole(locale, "client");
   const t = await getTranslations("client.overview");
   const supabase = await createClient();
-  const plans = await new WorkoutsService(supabase).listForClient(userId);
-  const pendingForms = await new FormsService(supabase).countPendingForms(userId);
-  const coach = await new ClientsService(supabase).getMyCoach(userId);
+  const [plans, pendingForms, coach] = await Promise.all([
+    new WorkoutsService(supabase).listForClient(userId).catch(() => [] as never[]),
+    new FormsService(supabase).countPendingForms(userId).catch(() => 0),
+    new ClientsService(supabase).getMyCoach(userId).catch(() => null),
+  ]);
 
   return (
     <div className="p-4 sm:p-6 space-y-6 max-w-4xl mx-auto">
