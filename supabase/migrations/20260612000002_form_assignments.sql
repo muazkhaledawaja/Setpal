@@ -53,6 +53,7 @@ ALTER TABLE public.form_responses ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.form_files ENABLE ROW LEVEL SECURITY;
 
 -- Coach can read all assignments for own clients
+DROP POLICY IF EXISTS "Coach read own clients assignments" ON public.form_assignments;
 CREATE POLICY "Coach read own clients assignments" ON public.form_assignments
     FOR SELECT USING (
         EXISTS (
@@ -63,6 +64,7 @@ CREATE POLICY "Coach read own clients assignments" ON public.form_assignments
     );
 
 -- Coach can create assignments for own clients
+DROP POLICY IF EXISTS "Coach create assignments for own clients" ON public.form_assignments;
 CREATE POLICY "Coach create assignments for own clients" ON public.form_assignments
     FOR INSERT WITH CHECK (
         assigned_by = auth.uid() AND
@@ -74,6 +76,7 @@ CREATE POLICY "Coach create assignments for own clients" ON public.form_assignme
     );
 
 -- Coach can update assignments (e.g., mark skipped)
+DROP POLICY IF EXISTS "Coach update own clients assignments" ON public.form_assignments;
 CREATE POLICY "Coach update own clients assignments" ON public.form_assignments
     FOR UPDATE USING (
         EXISTS (
@@ -84,15 +87,18 @@ CREATE POLICY "Coach update own clients assignments" ON public.form_assignments
     );
 
 -- Client can read own assignments
+DROP POLICY IF EXISTS "Client read own assignments" ON public.form_assignments;
 CREATE POLICY "Client read own assignments" ON public.form_assignments
     FOR SELECT USING (client_id = auth.uid());
 
 -- Client can update own assignment status (start, complete)
+DROP POLICY IF EXISTS "Client update own assignment status" ON public.form_assignments;
 CREATE POLICY "Client update own assignment status" ON public.form_assignments
     FOR UPDATE USING (client_id = auth.uid())
     WITH CHECK (client_id = auth.uid());
 
 -- Responses: Coach can read responses for own clients' assignments
+DROP POLICY IF EXISTS "Coach read own clients responses" ON public.form_responses;
 CREATE POLICY "Coach read own clients responses" ON public.form_responses
     FOR SELECT USING (
         EXISTS (
@@ -104,6 +110,7 @@ CREATE POLICY "Coach read own clients responses" ON public.form_responses
     );
 
 -- Client can CRUD own responses
+DROP POLICY IF EXISTS "Client manage own responses" ON public.form_responses;
 CREATE POLICY "Client manage own responses" ON public.form_responses
     FOR ALL USING (
         EXISTS (
@@ -114,6 +121,7 @@ CREATE POLICY "Client manage own responses" ON public.form_responses
     );
 
 -- Files: Coach can read files for own clients' responses
+DROP POLICY IF EXISTS "Coach read own clients form files" ON public.form_files;
 CREATE POLICY "Coach read own clients form files" ON public.form_files
     FOR SELECT USING (
         EXISTS (
@@ -126,6 +134,7 @@ CREATE POLICY "Coach read own clients form files" ON public.form_files
     );
 
 -- Client can CRUD own files
+DROP POLICY IF EXISTS "Client manage own form files" ON public.form_files;
 CREATE POLICY "Client manage own form files" ON public.form_files
     FOR ALL USING (
         EXISTS (
@@ -138,6 +147,7 @@ CREATE POLICY "Client manage own form files" ON public.form_files
 
 -- Client can read assigned template questions (via assignments join)
 -- Defined here (not in migration 01) because it references public.form_assignments.
+DROP POLICY IF EXISTS "Client read assigned template questions" ON public.form_questions;
 CREATE POLICY "Client read assigned template questions" ON public.form_questions
     FOR SELECT USING (
         EXISTS (
@@ -149,12 +159,15 @@ CREATE POLICY "Client read assigned template questions" ON public.form_questions
     );
 
 -- Admin full access
+DROP POLICY IF EXISTS "Admin full access assignments" ON public.form_assignments;
 CREATE POLICY "Admin full access assignments" ON public.form_assignments FOR ALL USING (
     EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Admin full access responses" ON public.form_responses;
 CREATE POLICY "Admin full access responses" ON public.form_responses FOR ALL USING (
     EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Admin full access files" ON public.form_files;
 CREATE POLICY "Admin full access files" ON public.form_files FOR ALL USING (
     EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );

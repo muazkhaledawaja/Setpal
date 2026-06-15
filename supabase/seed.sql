@@ -1,57 +1,13 @@
--- Reconcile: the initial Setpal schema created an `exercises` stub with a different
--- shape (muscle_groups[] array, no video_url). The workout-plans library needs a
--- single `muscle_group` text column. The stub was never populated (library UI was
--- never built), so we drop and recreate it with the correct shape, then seed.
+-- Local/dev seed data. Applied by `supabase db reset` AFTER all migrations run.
+-- NOT part of remote migration history and never replayed by `supabase db push`.
+-- Moved here from the (now-squashed) 20260521090100_exercises_seed.sql.
 --
--- `cascade` also drops workout_day_exercises / workout_log_sets FKs to exercises if
--- they were partially created against the old table; re-run 20260521090200 after this
--- if those tables do not yet exist. This script is safe to re-run.
+-- NOTE: the global foods library seed lives in a real migration
+-- (20260616100100_foods_seed.sql) because it was added this session and is part
+-- of the migration history; only the exercises seed was relocated here.
 
-drop table if exists public.exercises cascade;
-
--- exercises: shared library (coach_id null = global/seeded) + per-coach customs
-create table public.exercises (
-  id            uuid primary key default gen_random_uuid(),
-  coach_id      uuid references public.profiles(id) on delete cascade, -- null = global
-  name_ar       text not null,
-  name_en       text not null,
-  muscle_group  text not null check (muscle_group in
-                  ('chest','back','shoulders','legs','arms','core','full_body','cardio')),
-  equipment     text,
-  video_url     text,
-  thumbnail_url text,
-  created_at    timestamptz not null default now(),
-  updated_at    timestamptz not null default now()
-);
-
-create index exercises_coach_id_idx on public.exercises(coach_id);
-create index exercises_muscle_group_idx on public.exercises(muscle_group);
-
-alter table public.exercises enable row level security;
-
--- library is not sensitive: any authenticated user may read all exercises
-create policy "exercises_select_authenticated"
-  on public.exercises for select
-  to authenticated
-  using (true);
-
--- coaches manage only their own customs
-create policy "exercises_insert_own"
-  on public.exercises for insert
-  to authenticated
-  with check (coach_id = auth.uid());
-
-create policy "exercises_update_own"
-  on public.exercises for update
-  to authenticated
-  using (coach_id = auth.uid());
-
-create policy "exercises_delete_own"
-  on public.exercises for delete
-  to authenticated
-  using (coach_id = auth.uid());
-
--- ============ seed: 40 global exercises (coach_id null) ============
+-- Global exercise library seed (coach_id null). Bilingual, MENA gym + bodyweight staples.
+-- on conflict guard keeps `db reset` re-runnable without duplicating rows.
 insert into public.exercises (name_en, name_ar, muscle_group, equipment, video_url) values
 ('Barbell Bench Press','بنش بريس بالبار','chest','barbell','https://www.youtube.com/watch?v=rT7DgCr-3pg'),
 ('Incline Dumbbell Press','بريس دمبل مائل','chest','dumbbell','https://www.youtube.com/watch?v=8iPEnn-ltC8'),
@@ -92,4 +48,5 @@ insert into public.exercises (name_en, name_ar, muscle_group, equipment, video_u
 ('Jump Rope','نط الحبل','cardio','bodyweight','https://www.youtube.com/watch?v=u3zgHI8QnqE'),
 ('Burpee','بيربي','full_body','bodyweight','https://www.youtube.com/watch?v=TU8QYVW0gDU'),
 ('Kettlebell Swing','أرجحة الكيتل بيل','full_body','kettlebell','https://www.youtube.com/watch?v=YSxHifyI6s8'),
-('Mountain Climber','تسلق الجبل','full_body','bodyweight','https://www.youtube.com/watch?v=nmwgirgXLYM');
+('Mountain Climber','تسلق الجبل','full_body','bodyweight','https://www.youtube.com/watch?v=nmwgirgXLYM')
+on conflict do nothing;

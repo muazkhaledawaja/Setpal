@@ -5,6 +5,18 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
+-- Reconcile with the squashed baseline (20260510120000_initial_schema.sql), which
+-- contains a STALE earlier form_templates (title_ar/title_en/schema, type enum
+-- intake/workout/diet/checkin/custom) plus the legacy form_submissions table that
+-- the new forms system replaces (form_assignments/form_responses). When this
+-- migration replays AFTER the baseline, the old shape is incompatible with the new
+-- columns this file + migration 03's views require (name, settings, parent_template_id).
+-- Drop the legacy forms objects so this migration can create the correct shape.
+-- This is safe in a fresh CI/local replay (no data); production drift is handled
+-- separately and is out of scope here.
+DROP TABLE IF EXISTS public.form_submissions CASCADE;
+DROP TABLE IF EXISTS public.form_templates CASCADE;
+
 -- Form Templates table
 CREATE TABLE IF NOT EXISTS public.form_templates (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -54,10 +66,12 @@ ALTER TABLE public.form_templates ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.form_questions ENABLE ROW LEVEL SECURITY;
 
 -- Coach can CRUD own templates
+DROP POLICY IF EXISTS "Coach manage own templates" ON public.form_templates;
 CREATE POLICY "Coach manage own templates" ON public.form_templates
     FOR ALL USING (coach_id = auth.uid());
 
 -- Coach can CRUD questions for own templates
+DROP POLICY IF EXISTS "Coach manage own template questions" ON public.form_questions;
 CREATE POLICY "Coach manage own template questions" ON public.form_questions
     FOR ALL USING (
         EXISTS (
@@ -72,9 +86,11 @@ CREATE POLICY "Coach manage own template questions" ON public.form_questions
 -- which does not exist yet at this point in the migration order.
 
 -- Admin full access
+DROP POLICY IF EXISTS "Admin full access templates" ON public.form_templates;
 CREATE POLICY "Admin full access templates" ON public.form_templates FOR ALL USING (
     EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Admin full access questions" ON public.form_questions;
 CREATE POLICY "Admin full access questions" ON public.form_questions FOR ALL USING (
     EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );

@@ -12,6 +12,7 @@ ON CONFLICT (id) DO UPDATE SET
 
 -- form-files policies
 -- Coach can read all files for their clients' form responses
+DROP POLICY IF EXISTS "Coach read clients form files" ON storage.objects;
 CREATE POLICY "Coach read clients form files" ON storage.objects
     FOR SELECT USING (
         bucket_id = 'form-files' AND
@@ -26,6 +27,7 @@ CREATE POLICY "Coach read clients form files" ON storage.objects
     );
 
 -- Client can read own form files
+DROP POLICY IF EXISTS "Client read own form files" ON storage.objects;
 CREATE POLICY "Client read own form files" ON storage.objects
     FOR SELECT USING (
         bucket_id = 'form-files' AND
@@ -39,6 +41,7 @@ CREATE POLICY "Client read own form files" ON storage.objects
     );
 
 -- Client can upload form files
+DROP POLICY IF EXISTS "Client upload form files" ON storage.objects;
 CREATE POLICY "Client upload form files" ON storage.objects
     FOR INSERT WITH CHECK (
         bucket_id = 'form-files' AND
@@ -47,6 +50,7 @@ CREATE POLICY "Client upload form files" ON storage.objects
     );
 
 -- Client can update own form files (replace)
+DROP POLICY IF EXISTS "Client update own form files" ON storage.objects;
 CREATE POLICY "Client update own form files" ON storage.objects
     FOR UPDATE USING (
         bucket_id = 'form-files' AND
@@ -60,6 +64,7 @@ CREATE POLICY "Client update own form files" ON storage.objects
     );
 
 -- Client can delete own form files
+DROP POLICY IF EXISTS "Client delete own form files" ON storage.objects;
 CREATE POLICY "Client delete own form files" ON storage.objects
     FOR DELETE USING (
         bucket_id = 'form-files' AND
@@ -73,6 +78,7 @@ CREATE POLICY "Client delete own form files" ON storage.objects
     );
 
 -- Coach can delete form files for their clients
+DROP POLICY IF EXISTS "Coach delete clients form files" ON storage.objects;
 CREATE POLICY "Coach delete clients form files" ON storage.objects
     FOR DELETE USING (
         bucket_id = 'form-files' AND
@@ -88,10 +94,12 @@ CREATE POLICY "Coach delete clients form files" ON storage.objects
 
 -- avatars policies
 -- Public read access for avatars
+DROP POLICY IF EXISTS "Public read avatars" ON storage.objects;
 CREATE POLICY "Public read avatars" ON storage.objects
     FOR SELECT USING (bucket_id = 'avatars');
 
 -- Authenticated users can upload their own avatar
+DROP POLICY IF EXISTS "User upload own avatar" ON storage.objects;
 CREATE POLICY "User upload own avatar" ON storage.objects
     FOR INSERT WITH CHECK (
         bucket_id = 'avatars' AND
@@ -100,6 +108,7 @@ CREATE POLICY "User upload own avatar" ON storage.objects
     );
 
 -- Users can update their own avatar
+DROP POLICY IF EXISTS "User update own avatar" ON storage.objects;
 CREATE POLICY "User update own avatar" ON storage.objects
     FOR UPDATE USING (
         bucket_id = 'avatars' AND
@@ -108,6 +117,7 @@ CREATE POLICY "User update own avatar" ON storage.objects
     );
 
 -- Users can delete their own avatar
+DROP POLICY IF EXISTS "User delete own avatar" ON storage.objects;
 CREATE POLICY "User delete own avatar" ON storage.objects
     FOR DELETE USING (
         bucket_id = 'avatars' AND
