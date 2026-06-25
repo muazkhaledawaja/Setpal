@@ -13,6 +13,35 @@
     "genericError": "Something went wrong",
     "emailInUse": "Email already registered"
   },
+  "applications": {
+    "modal": {
+      "title": "Reserve your free spot",
+      "subtitle": "Tell us about yourself and we'll set up your account"
+    },
+    "fields": {
+      "fullName": "Full name",
+      "email": "Email",
+      "phone": "Phone number",
+      "phonePlaceholder": "e.g. +201234567890",
+      "city": "City",
+      "specialty": "Specialty",
+      "specialtyFitness": "Fitness",
+      "specialtyNutrition": "Nutrition",
+      "specialtyBoth": "Both",
+      "clientCount": "Current client count (approx.)",
+      "clientCountPlaceholder": "0"
+    },
+    "submit": "Send my application",
+    "submitting": "Sending...",
+    "success": {
+      "title": "Application received!",
+      "message": "We'll reach out within 24 hours to set up your account.",
+      "whatsapp": "Message us on WhatsApp"
+    },
+    "errors": {
+      "generic": "Something went wrong, please try again"
+    }
+  },
   "auth": {
     "loginTitle": "Welcome back",
     "loginSubtitle": "Sign in to your Setpal account",
@@ -65,23 +94,43 @@
       "ctaSecondary": "See how it works",
       "note": "14-day free trial · no card required"
     },
-    "appmock": {
-      "title": "Dashboard",
-      "subtitle": "Welcome back — here's a snapshot of your workspace.",
-      "clients": "Active Clients",
-      "checkins": "Pending Check-ins",
-      "sub": "Subscription",
-      "plan": "Pro",
-      "recent": "Recent clients",
-      "joined": "Joined",
-      "active": "Active",
-      "paused": "Paused",
-      "row1Name": "Layla Hassan",
-      "row1Date": "12 Jan",
-      "row2Name": "Omar Said",
-      "row2Date": "03 Feb",
-      "row3Name": "Nour Khalil",
-      "row3Date": "28 Nov"
+    "builderHero": {
+      "eyebrow": "The coaching forms-builder for MENA",
+      "title": "Build the exact form\nyour coaching needs.",
+      "sub": "Most coaching tools hand you fixed forms. Setpal hands you a builder — design intake, check-in, and progress forms in Arabic and English, then assign them in a tap.",
+      "ctaPrimary": "Start free trial",
+      "ctaSecondary": "See how it works",
+      "note": "14-day free trial · no card required",
+      "panelTitle": "New check-in form",
+      "paletteLabel": "Add a field",
+      "addHint": "Tap a field to add it",
+      "reset": "Reset",
+      "preview": "Live preview",
+      "empty": "Add a field to start building",
+      "remove": "Remove field",
+      "fields": {
+        "text": "Text",
+        "number": "Number",
+        "scale": "Scale",
+        "photo": "Photo",
+        "yes_no": "Yes / No",
+        "select": "Choice"
+      },
+      "seed": {
+        "weight": "Weight today (kg)",
+        "energy": "Energy level (1–10)"
+      },
+      "samples": {
+        "text": "How did training feel this week?",
+        "number": "Hours of sleep last night",
+        "scale": "Stress level (1–10)",
+        "photo": "Upload a progress photo",
+        "yes_no": "Did you hit your steps target?",
+        "select": "Pick today's meal adherence"
+      },
+      "yes": "Yes",
+      "no": "No",
+      "selectOptions": "On track · Partly · Off track"
     },
     "features": {
       "title": "Everything you need to run your coaching",
