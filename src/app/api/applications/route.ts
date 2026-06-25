@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { CoachApplicationSchema, type CoachApplicationInput } from "@/modules/applications/applications.schemas";
+import { CoachApplicationSchema } from "@/modules/applications/applications.schemas";
 
 export async function POST(request: Request) {
   let body: unknown;

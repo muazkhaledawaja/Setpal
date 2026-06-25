@@ -234,7 +234,7 @@ export function QuestionRenderer({
 }
 
 function FileUploadInput({
-  questionId, clientId, value, onChange, locale,
+  questionId, clientId, value, onChange, locale: _locale,
 }: {
   questionId: string;
   clientId?: string;

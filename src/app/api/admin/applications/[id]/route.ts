@@ -47,11 +47,10 @@ export async function PATCH(
     // @ts-expect-error — hand-written database.ts stub doesn't fully resolve Supabase
     // generics for this table; harmless at runtime, resolves when types are generated.
     .update(parsed.data);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (updateQuery
+  const { data, error } = (await updateQuery
     .eq("id", id)
     .select()
-    .single() as any);
+    .single()) as { data: Record<string, unknown> | null; error: { message: string } | null };
 
   if (error) {
     console.error("[admin/applications/PATCH]", error);

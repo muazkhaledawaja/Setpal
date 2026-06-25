@@ -51,7 +51,7 @@ export function AcceptInviteForm({
     const supabase = createClient();
 
     // 1. Sign up
-    const { data, error: signupError } = await supabase.auth.signUp({
+    const { error: signupError } = await supabase.auth.signUp({
       email,
       password: values.password,
       options: {

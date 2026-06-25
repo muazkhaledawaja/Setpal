@@ -15,7 +15,6 @@ import {
   Plus,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Link } from "@/i18n/routing";
 import { ApplyModal } from "./apply-modal";
 
 /** Field kinds mirror the real product vocabulary in

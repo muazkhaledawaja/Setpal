@@ -40,8 +40,6 @@ export function CoachTopbar({ fullName, avatarUrl, locale }: TopbarProps) {
     router.push("/login");
   }
 
-  const otherLocale = locale === "ar" ? "en" : "ar";
-
   return (
     <header className="flex items-center justify-between h-16 px-6 border-b border-border bg-card shrink-0">
       <div />
