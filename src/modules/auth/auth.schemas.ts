@@ -7,7 +7,7 @@ export const RegisterSchema = z.object({
   email: z.string().email("Invalid email"),
   password: z.string().min(8, "Password must be at least 8 characters"),
   fullName: z.string().min(2, "Name too short").max(120),
-  role: z.enum(["coach", "client"]), // admin is created out-of-band
+  role: z.literal("coach"), // public signup is coach-only; clients are created by their coach, admin out-of-band
   locale: LocaleSchema.default("ar"),
 });
 

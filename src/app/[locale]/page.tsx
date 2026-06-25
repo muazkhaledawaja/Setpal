@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { LandingNav } from "@/components/landing/nav";
-import { LandingHero } from "@/components/landing/hero";
+import { BuilderHero } from "@/components/landing/builder-hero";
 import { LandingFeatures } from "@/components/landing/features";
 import { LandingHow } from "@/components/landing/how";
 import { LandingMena } from "@/components/landing/mena";
@@ -109,9 +109,9 @@ export default async function HomePage({
       />
       <LandingNav />
       <main>
-        <LandingHero />
-        <LandingFeatures />
+        <BuilderHero />
         <LandingHow />
+        <LandingFeatures />
         <LandingMena />
         <LandingPricing />
         <LandingFaq />
