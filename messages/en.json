@@ -137,6 +137,11 @@
       "sub": "One workspace for plans, your exercise library, forms, and client progress.",
       "items": [
         {
+          "icon": "clipboard-list",
+          "title": "Forms & check-ins",
+          "body": "Create onboarding and recurring check-in forms. Collect the data you need, on schedule."
+        },
+        {
           "icon": "dumbbell",
           "title": "Workout plans",
           "body": "Build structured programs day-by-day — exercises, sets, reps, rest, and notes — then assign them in a tap."
@@ -145,11 +150,6 @@
           "icon": "library",
           "title": "Exercise library",
           "body": "A shared library with demo videos, plus your own custom exercises tagged by muscle group."
-        },
-        {
-          "icon": "clipboard-list",
-          "title": "Forms & check-ins",
-          "body": "Create onboarding and recurring check-in forms. Collect the data you need, on schedule."
         },
         {
           "icon": "trending-up",
@@ -686,6 +686,7 @@
     "nav": {
       "dashboard": "Dashboard",
       "users": "Users",
+      "applications": "Applications",
       "library": "Library",
       "settings": "Settings"
     },
