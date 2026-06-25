@@ -686,6 +686,7 @@
     "nav": {
       "dashboard": "لوحة التحكم",
       "users": "المستخدمون",
+      "applications": "طلبات الانضمام",
       "library": "المكتبة",
       "settings": "الإعدادات"
     },
