@@ -223,15 +223,30 @@ export type Database = {
           created_at: string;
           updated_at: string;
         };
-        Insert: Partial<Database["public"]["Tables"]["coach_applications"]["Row"]> & {
+        Insert: {
+          id?: string;
+          created_at?: string;
           full_name: string;
           email: string;
           phone: string;
           city: string;
           specialty: "fitness" | "nutrition" | "both";
           client_count: number;
+          status?: "new" | "contacted" | "approved" | "rejected";
+          admin_notes?: string | null;
         };
-        Update: Partial<Database["public"]["Tables"]["coach_applications"]["Row"]>;
+        Update: {
+          id?: string;
+          created_at?: string;
+          full_name?: string;
+          email?: string;
+          phone?: string;
+          city?: string;
+          specialty?: "fitness" | "nutrition" | "both";
+          client_count?: number;
+          status?: "new" | "contacted" | "approved" | "rejected";
+          admin_notes?: string | null;
+        };
       };
       workout_plans: {
         Row: {

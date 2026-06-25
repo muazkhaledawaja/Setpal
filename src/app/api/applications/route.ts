@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { CoachApplicationSchema } from "@/modules/applications/applications.schemas";
-import type { Database } from "@/types/database";
+import { CoachApplicationSchema, type CoachApplicationInput } from "@/modules/applications/applications.schemas";
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -20,14 +19,13 @@ export async function POST(request: Request) {
   }
 
   const supabase = createAdminClient();
-  // Supabase's string literal table lookup doesn't infer types perfectly with all query chains.
-  // The Database type is correct; TypeScript just can't resolve it from the string "coach_applications".
+  const insertQuery = supabase
+    .from("coach_applications")
+    // @ts-expect-error — hand-written database.ts stub doesn't fully resolve Supabase
+    // generics for this table; harmless at runtime, resolves when types are generated.
+    .insert([parsed.data]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (supabase
-    .from("coach_applications") as any)
-    .insert([parsed.data])
-    .select("id")
-    .single();
+  const { data, error } = await (insertQuery as any).select("id").single();
 
   if (error) {
     console.error("[applications/POST]", error);
