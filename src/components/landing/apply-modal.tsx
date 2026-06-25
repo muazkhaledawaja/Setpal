@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { z } from "zod";
 import {
   CoachApplicationSchema,
   type CoachApplicationInput,
@@ -35,9 +36,8 @@ export function ApplyModal({ open, onOpenChange }: ApplyModalProps) {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<CoachApplicationInput>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(CoachApplicationSchema) as any,
+  } = useForm<z.input<typeof CoachApplicationSchema>, unknown, CoachApplicationInput>({
+    resolver: zodResolver(CoachApplicationSchema),
     defaultValues: { specialty: "fitness", client_count: 0 },
   });
 
