@@ -42,14 +42,21 @@ function ApplicationRow({ app }: { app: Application }) {
   const [notes, setNotes] = useState(app.admin_notes ?? "");
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState(false);
 
   async function save() {
     setSaving(true);
-    await fetch(`/api/admin/applications/${app.id}`, {
+    const res = await fetch(`/api/admin/applications/${app.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status, admin_notes: notes }),
     });
+    if (!res.ok) {
+      setSaving(false);
+      setSaveError(true);
+      setTimeout(() => setSaveError(false), 3000);
+      return;
+    }
     setSaving(false);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
@@ -128,6 +135,7 @@ function ApplicationRow({ app }: { app: Application }) {
               >
                 {saving ? "Saving…" : saved ? "Saved ✓" : "Save"}
               </Button>
+              {saveError && <p className="text-xs text-destructive">Failed to save</p>}
             </div>
           </td>
         </tr>

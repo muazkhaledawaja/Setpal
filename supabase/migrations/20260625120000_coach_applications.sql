@@ -13,6 +13,8 @@ create table public.coach_applications (
   admin_notes   text
 );
 
+alter table public.coach_applications enable row level security;
+
 -- No RLS policies: anon cannot select/update. Admin client (service role) bypasses RLS entirely.
 -- Index for admin list view (newest first).
 create index coach_applications_created_at_idx on public.coach_applications (created_at desc);

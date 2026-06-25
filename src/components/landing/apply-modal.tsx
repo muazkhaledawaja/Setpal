@@ -76,15 +76,17 @@ export function ApplyModal({ open, onOpenChange }: ApplyModalProps) {
               <DialogTitle>{t("success.title")}</DialogTitle>
               <DialogDescription>{t("success.message")}</DialogDescription>
             </DialogHeader>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="lp-btn lp-btn-primary lp-btn-lg inline-flex items-center gap-2"
-            >
-              <MessageCircle size={18} />
-              {t("success.whatsapp")}
-            </a>
+            {whatsappNumber.trim() && (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="lp-btn lp-btn-primary lp-btn-lg inline-flex items-center gap-2"
+              >
+                <MessageCircle size={18} />
+                {t("success.whatsapp")}
+              </a>
+            )}
           </div>
         ) : (
           <>

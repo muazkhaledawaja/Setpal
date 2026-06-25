@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { redirect } from "@/i18n/routing";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { ApplicationsTable } from "./applications-table";
@@ -29,13 +29,13 @@ export default async function AdminApplicationsPage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect(`/${locale}/login`);
+  if (!user) redirect({ href: "/login", locale });
   const { data: profile } = (await supabase
     .from("profiles")
     .select("role")
-    .eq("id", user.id)
+    .eq("id", user!.id)
     .single()) as { data: { role: string } | null; error: unknown };
-  if (profile?.role !== "admin") redirect(`/${locale}`);
+  if (profile?.role !== "admin") redirect({ href: "/", locale });
 
   // Fetch all applications using admin client (bypasses RLS)
   const admin = createAdminClient();
