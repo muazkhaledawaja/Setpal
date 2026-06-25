@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import {
   ArrowRight,
   CheckCircle2,
+  ChevronDown,
   Type,
   Hash,
   SlidersHorizontal,
@@ -17,8 +18,6 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { ApplyModal } from "./apply-modal";
 
-/** Field kinds mirror the real product vocabulary in
- *  src/modules/forms/forms.schemas.ts (QUESTION_TYPES). */
 type FieldKind = "text" | "number" | "scale" | "photo" | "yes_no" | "select";
 
 const PALETTE: { kind: FieldKind; Icon: LucideIcon }[] = [
@@ -66,7 +65,8 @@ export function BuilderHero() {
   };
 
   return (
-    <section className="lp-hero lp-builder-hero">
+    <section className="lp-hero">
+      {/* centered copy block */}
       <div className="lp-hero-copy">
         <span className="lp-eyebrow">{t("eyebrow")}</span>
         <h1 className="lp-hero-title">{t("title")}</h1>
@@ -89,22 +89,18 @@ export function BuilderHero() {
         </div>
       </div>
 
+      {/* interactive builder widget — centered below copy */}
       <div className="lp-hero-visual">
         <div className="lp-builder">
           <div className="lp-builder-head">
             <span className="lp-builder-title">{t("panelTitle")}</span>
             {fields.length > 0 && (
-              <button
-                type="button"
-                className="lp-builder-reset"
-                onClick={reset}
-              >
+              <button type="button" className="lp-builder-reset" onClick={reset}>
                 {t("reset")}
               </button>
             )}
           </div>
 
-          {/* palette */}
           <div className="lp-builder-palette" role="group" aria-label={t("paletteLabel")}>
             {PALETTE.map(({ kind, Icon }) => (
               <button
@@ -122,7 +118,6 @@ export function BuilderHero() {
           </div>
           <p className="lp-builder-hint">{t("addHint")}</p>
 
-          {/* canvas */}
           <div className="lp-builder-preview-label">{t("preview")}</div>
           <div className="lp-canvas">
             {fields.length === 0 ? (
@@ -143,6 +138,12 @@ export function BuilderHero() {
           </div>
         </div>
       </div>
+
+      {/* scroll hint */}
+      <div className="lp-scroll-hint" aria-hidden="true">
+        <ChevronDown size={20} strokeWidth={2} />
+      </div>
+
       <ApplyModal open={applyOpen} onOpenChange={setApplyOpen} />
     </section>
   );
