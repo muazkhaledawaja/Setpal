@@ -19,9 +19,12 @@ export async function POST(request: Request) {
     );
   }
 
-  const supabase = createAdminClient() as any;
-  const { data, error } = await supabase
-    .from("coach_applications")
+  const supabase = createAdminClient();
+  // Supabase's string literal table lookup doesn't infer types perfectly with all query chains.
+  // The Database type is correct; TypeScript just can't resolve it from the string "coach_applications".
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (supabase
+    .from("coach_applications") as any)
     .insert([parsed.data])
     .select("id")
     .single();
