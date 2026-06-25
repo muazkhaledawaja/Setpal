@@ -36,7 +36,7 @@ interface ClientTabsProps {
   chatMessages: ChatMessageRow[];
 }
 
-export function ClientTabs({ clientId, coachId, locale, status, assignedPlans, assignedMealPlans, chatMessages }: ClientTabsProps) {
+export function ClientTabs({ clientId, coachId, status, assignedPlans, assignedMealPlans, chatMessages }: ClientTabsProps) {
   const t = useTranslations("coach");
   const tWorkouts = useTranslations("workouts");
   const tMeals = useTranslations("mealPlans");

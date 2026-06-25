@@ -7,21 +7,20 @@ import type {
 } from "./forms.schemas";
 import type {
   FormTemplateRow, FormTemplateInsert, FormQuestionRow, FormQuestionInsert,
-  FormAssignmentRow, FormAssignmentInsert, FormResponseRow, FormFileRow,
+  FormAssignmentRow, FormAssignmentInsert, FormFileRow,
   FormTemplateWithQuestions, FormAssignmentWithTemplate, FormAssignmentForClient,
   ResponseWithQuestion, TemplateAnalytics, ClientFormDashboard,
   ClientAssignmentListItem,
 } from "./forms.types";
 import {
   TemplateNotFoundError, TemplateAccessDeniedError, QuestionNotFoundError,
-  AssignmentNotFoundError, AssignmentAccessDeniedError, AssignmentAlreadyExistsError,
-  FormsError, ValidationError, FileUploadError,
+  AssignmentNotFoundError, AssignmentAccessDeniedError,
+  FormsError, FileUploadError,
 } from "./forms.errors";
 
 type DB = Database["public"]["Tables"];
 type SB = SupabaseClient<any>;
 
-type InviteRow = DB["client_invites"]["Row"];
 
 export class FormsService {
   private db: SB;
@@ -292,7 +291,7 @@ export class FormsService {
     return created;
   }
 
-  async getClientAssignments(clientId: string, locale?: string): Promise<FormAssignmentWithTemplate[]> {
+  async getClientAssignments(clientId: string): Promise<FormAssignmentWithTemplate[]> {
     const { data, error } = await this.db
       .from("v_client_assignments")
       .select("*")
@@ -303,8 +302,8 @@ export class FormsService {
     return (data ?? []) as FormAssignmentWithTemplate[];
   }
 
-  async getClientDashboard(clientId: string, locale?: string): Promise<ClientFormDashboard> {
-    const assignments = await this.getClientAssignments(clientId, locale);
+  async getClientDashboard(clientId: string): Promise<ClientFormDashboard> {
+    const assignments = await this.getClientAssignments(clientId);
     const now = new Date();
     const next24h = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 

@@ -30,7 +30,6 @@ export function useChatChannel(clientId: string, initial: ChatMessageRow[]) {
     return () => {
       supabase.removeChannel(channel);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clientId]);
 
   return { messages, appendLocal };

@@ -23,7 +23,7 @@ export function AdminSidebar() {
         <Logo variant="horizontal" theme="dark" width={160} />
       </div>
 
-      <nav className="flex-1 px-3 py-4 space-y-1">
+      <nav className="flex-1 px-3 py-4 space-y-0.5">
         {NAV_ITEMS.map(({ key, href, icon: Icon }) => {
           const isActive =
             href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
@@ -33,9 +33,9 @@ export function AdminSidebar() {
               key={key}
               href={href}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors relative",
                 isActive
-                  ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                  ? "bg-sidebar-primary/10 text-sidebar-primary border-e-2 border-sidebar-primary"
                   : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               )}
             >

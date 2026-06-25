@@ -22,8 +22,6 @@ export function RegisterForm({ locale }: { locale: string }) {
   const {
     register,
     handleSubmit,
-    watch,
-    setValue,
     formState: { errors },
   } = useForm<z.input<typeof RegisterSchema>, unknown, RegisterInput>({
     resolver: zodResolver(RegisterSchema),
@@ -32,8 +30,6 @@ export function RegisterForm({ locale }: { locale: string }) {
       locale: locale === "ar" ? "ar" : "en",
     },
   });
-
-  const selectedRole = watch("role");
 
   async function onSubmit(values: RegisterInput) {
     setLoading(true);
@@ -84,33 +80,7 @@ export function RegisterForm({ locale }: { locale: string }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div className="space-y-2">
-        <Label>{t("auth.iAmA")}</Label>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            onClick={() => setValue("role", "coach")}
-            className={`p-3 rounded-md border text-sm transition ${
-              selectedRole === "coach"
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border bg-card hover:bg-accent"
-            }`}
-          >
-            {t("auth.coach")}
-          </button>
-          <button
-            type="button"
-            onClick={() => setValue("role", "client")}
-            className={`p-3 rounded-md border text-sm transition ${
-              selectedRole === "client"
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border bg-card hover:bg-accent"
-            }`}
-          >
-            {t("auth.client")}
-          </button>
-        </div>
-      </div>
+      <input type="hidden" {...register("role")} value="coach" />
 
       <div className="space-y-2">
         <Label htmlFor="fullName">{t("common.fullName")}</Label>
