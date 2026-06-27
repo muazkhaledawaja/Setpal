@@ -16,7 +16,7 @@ import {
   Plus,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { ApplyModal } from "./apply-modal";
+import { Link } from "@/i18n/routing";
 
 type FieldKind = "text" | "number" | "scale" | "photo" | "yes_no" | "select";
 
@@ -46,7 +46,6 @@ export function BuilderHero() {
   ];
 
   const [fields, setFields] = useState<CanvasField[]>(seed);
-  const [applyOpen, setApplyOpen] = useState(false);
 
   const addField = (kind: FieldKind) => {
     setFields((prev) => [
@@ -72,13 +71,9 @@ export function BuilderHero() {
         <h1 className="lp-hero-title">{t("title")}</h1>
         <p className="lp-hero-sub">{t("sub")}</p>
         <div className="lp-hero-cta">
-          <button
-            type="button"
-            onClick={() => setApplyOpen(true)}
-            className="lp-btn lp-btn-primary lp-btn-lg"
-          >
+          <Link href="/register" className="lp-btn lp-btn-primary lp-btn-lg">
             {t("ctaPrimary")}
-          </button>
+          </Link>
           <a href="#how" className="lp-btn lp-btn-ghost lp-btn-lg">
             {t("ctaSecondary")}
             <ArrowRight size={16} strokeWidth={2} className="rtl:rotate-180" />
@@ -144,7 +139,6 @@ export function BuilderHero() {
         <ChevronDown size={20} strokeWidth={2} />
       </div>
 
-      <ApplyModal open={applyOpen} onOpenChange={setApplyOpen} />
     </section>
   );
 }

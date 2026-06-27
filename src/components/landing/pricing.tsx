@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Users } from "lucide-react";
-import { ApplyModal } from "./apply-modal";
+import { Link } from "@/i18n/routing";
 import { ScrollReveal } from "./scroll-reveal";
 
 interface Tier {
@@ -17,7 +16,6 @@ interface Tier {
 export function LandingPricing() {
   const t = useTranslations("landing.pricing");
   const tiers = t.raw("tiers") as Tier[];
-  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -44,20 +42,18 @@ export function LandingPricing() {
                   <div className="lp-price-limit">
                     <Users size={15} strokeWidth={2} /> {tier.limit}
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setOpen(true)}
+                  <Link
+                    href="/register"
                     className={"lp-btn lp-btn-block " + (tier.popular ? "lp-btn-primary" : "lp-btn-outline")}
                   >
                     {t("cta")}
-                  </button>
+                  </Link>
                 </div>
               </ScrollReveal>
             );
           })}
         </div>
       </section>
-      <ApplyModal open={open} onOpenChange={setOpen} />
     </>
   );
 }

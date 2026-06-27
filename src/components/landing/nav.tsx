@@ -5,11 +5,9 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { Menu, X } from "lucide-react";
 import { LanguageToggle } from "./language-toggle";
-import { ApplyModal } from "./apply-modal";
 
 export function LandingNav() {
   const t = useTranslations("landing.nav");
-  const [applyOpen, setApplyOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const links = [
@@ -39,13 +37,9 @@ export function LandingNav() {
             <Link href="/login" className="lp-link-signin">
               {t("signin")}
             </Link>
-            <button
-              type="button"
-              onClick={() => setApplyOpen(true)}
-              className="lp-btn lp-btn-primary lp-btn-sm"
-            >
+            <Link href="/register" className="lp-btn lp-btn-primary lp-btn-sm">
               {t("cta")}
-            </button>
+            </Link>
             <button
               type="button"
               className="lp-hamburger"
@@ -77,19 +71,18 @@ export function LandingNav() {
               <Link href="/login" className="lp-btn lp-btn-outline lp-btn-block" onClick={() => setMenuOpen(false)}>
                 {t("signin")}
               </Link>
-              <button
-                type="button"
-                onClick={() => { setMenuOpen(false); setApplyOpen(true); }}
+              <Link
+                href="/register"
                 className="lp-btn lp-btn-primary lp-btn-block"
+                onClick={() => setMenuOpen(false)}
               >
                 {t("cta")}
-              </button>
+              </Link>
             </div>
           </div>
         </div>
       </header>
 
-      <ApplyModal open={applyOpen} onOpenChange={setApplyOpen} />
     </>
   );
 }
