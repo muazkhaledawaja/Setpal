@@ -16,6 +16,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import { Trash2, Plus } from "lucide-react";
+import { HeroBand } from "@/components/command";
 
 type Food = Database["public"]["Tables"]["foods"]["Row"];
 
@@ -103,8 +104,25 @@ export function MealPlanBuilder({
     }
   }
 
+  const tm = useTranslations("mealPlans");
+
   return (
-    <div className="p-6 space-y-6 max-w-3xl">
+    <div className="-m-6 pb-6">
+      <HeroBand
+        eyebrow={tm("title")}
+        title={tm("newPlan")}
+        subtitle={tm("subtitle")}
+      >
+        <Button
+          onClick={save}
+          disabled={saving || !name || days.length === 0}
+          className="bg-[var(--brand-cream)] text-[var(--brand-teal-deep)] hover:bg-[var(--brand-cream)]/90"
+        >
+          {t("save")}
+        </Button>
+      </HeroBand>
+
+      <div className="max-w-3xl space-y-6 px-6 pt-6">
       <div>
         <Label>{t("planName")}</Label>
         <Input value={name} onChange={(e) => setName(e.target.value)} />
@@ -159,6 +177,7 @@ export function MealPlanBuilder({
       <div className="flex gap-3">
         <Button variant="outline" onClick={addDay}><Plus className="size-4 me-2" />{t("addDay")}</Button>
         <Button onClick={save} disabled={saving || !name || days.length === 0}>{t("save")}</Button>
+      </div>
       </div>
     </div>
   );

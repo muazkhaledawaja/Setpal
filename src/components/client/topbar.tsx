@@ -9,6 +9,7 @@ import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const MOBILE_NAV = [
   { key: "overview", href: "/client", icon: Home },
@@ -38,6 +39,7 @@ export function ClientTopbar({ fullName, avatarUrl, locale }: { fullName: string
             <Link href={pathname} locale="ar" className={cn("px-3 py-1.5", locale === "ar" ? "bg-primary text-primary-foreground" : "text-muted-foreground")}>ع</Link>
             <Link href={pathname} locale="en" className={cn("px-3 py-1.5 border-s border-border", locale === "en" ? "bg-primary text-primary-foreground" : "text-muted-foreground")}>EN</Link>
           </div>
+          <ThemeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="flex items-center gap-2 rounded-lg p-1 hover:bg-muted transition-colors outline-none">

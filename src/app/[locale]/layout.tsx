@@ -3,6 +3,7 @@ import { Inter, Fraunces, Cairo } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -46,7 +47,14 @@ export default async function LocaleLayout({
       className={`${inter.variable} ${fraunces.variable} ${cairo.variable}`}
     >
       <body suppressHydrationWarning className="antialiased">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
