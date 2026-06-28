@@ -264,16 +264,32 @@
       "library": "المكتبة",
       "forms": "النماذج",
       "settings": "الإعدادات",
-      "mealPlans": "خطط التغذية"
+      "mealPlans": "خطط التغذية",
+      "sectionCoaching": "التدريب",
+      "sectionManage": "الإدارة",
+      "planLabel": "باقة {tier}"
     },
     "dashboard": {
       "title": "لوحة التحكم",
-      "subtitle": "أهلاً بعودتك — إليك نظرة عامة على مساحة العمل."
+      "subtitle": "أهلاً بعودتك — إليك نظرة عامة على مساحة العمل.",
+      "greetingMorning": "صباح الخير يا {name}.",
+      "greetingAfternoon": "مساء الخير يا {name}.",
+      "greetingEvening": "مساء الخير يا {name}.",
+      "standToday": "هذه حال قائمة متدربيك اليوم.",
+      "needsAttention": "يحتاج انتباهك",
+      "todaySessions": "جلسات اليوم",
+      "roster": "القائمة",
+      "viewAll": "عرض الكل",
+      "allGood": "كل شيء على ما يرام — لا شيء يحتاج انتباهك الآن.",
+      "noSessions": "لا جلسات مجدولة اليوم.",
+      "emptyRoster": "سيظهر متدربوك النشطون هنا."
     },
     "stats": {
       "activeClients": "المتدربون النشطون",
       "pendingCheckIns": "تسجيلات الدخول المعلّقة",
-      "subscription": "الاشتراك"
+      "subscription": "الاشتراك",
+      "checkInsToReview": "متابعات للمراجعة",
+      "avgAdherence": "متوسط الالتزام"
     },
     "subscription": {
       "trial": "تجريبي — {days} أيام متبقية",

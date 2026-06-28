@@ -2,6 +2,7 @@ import { AdminSidebar } from "@/components/admin/sidebar";
 import { LogoutButton } from "@/components/logout-button";
 import { requireRole } from "@/lib/auth/require-role";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 function initials(name: string | null): string {
   if (!name) return "A";
@@ -33,6 +34,7 @@ export default async function AdminLayout({
             </Avatar>
             <span className="text-sm font-medium hidden sm:block">{profile.full_name}</span>
           </div>
+          <ThemeToggle />
           <div className="w-px h-5 bg-border" />
           <LogoutButton />
         </header>

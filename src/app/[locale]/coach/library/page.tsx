@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { ExercisesService } from "@/modules/library/exercises.service";
 import { FoodsService } from "@/modules/library/foods.service";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { HeroBand } from "@/components/command";
 import { ExercisesClient } from "./exercises-client";
 import { FoodsClient } from "./foods-client";
 
@@ -21,23 +22,35 @@ export default async function CoachLibraryPage({
     new FoodsService(supabase).listLibrary(userId),
   ]);
 
+  const tNav = await getTranslations("coach");
   const t = await getTranslations("library");
   const tf = await getTranslations("foods");
 
   return (
-    <div className="p-6">
-      <Tabs defaultValue="exercises">
-        <TabsList className="mb-6">
-          <TabsTrigger value="exercises">{t("title")}</TabsTrigger>
-          <TabsTrigger value="foods">{tf("title")}</TabsTrigger>
-        </TabsList>
-        <TabsContent value="exercises">
-          <ExercisesClient initialExercises={exercises} coachId={userId} locale={locale} />
-        </TabsContent>
-        <TabsContent value="foods">
-          <FoodsClient initialFoods={foods} coachId={userId} locale={locale} />
-        </TabsContent>
-      </Tabs>
+    <div className="-m-6 pb-6">
+      <HeroBand
+        eyebrow={tNav("nav.library")}
+        title={t("title")}
+        subtitle={t("subtitle")}
+      />
+      <div className="px-6 pt-6">
+        <Tabs defaultValue="exercises">
+          <TabsList className="mb-6">
+            <TabsTrigger value="exercises">{t("title")}</TabsTrigger>
+            <TabsTrigger value="foods">{tf("title")}</TabsTrigger>
+          </TabsList>
+          <TabsContent value="exercises">
+            <ExercisesClient
+              initialExercises={exercises}
+              coachId={userId}
+              locale={locale}
+            />
+          </TabsContent>
+          <TabsContent value="foods">
+            <FoodsClient initialFoods={foods} coachId={userId} locale={locale} />
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   );
 }

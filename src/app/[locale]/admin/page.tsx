@@ -13,6 +13,7 @@ import {
   BookOpen,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { HeroBand, CountUp } from "@/components/command";
 
 type StatColor = "warning" | "primary" | "success" | "muted";
 
@@ -25,27 +26,23 @@ interface StatCard {
   badge?: string;
 }
 
-const colorMap: Record<StatColor, { border: string; iconBg: string; iconText: string; linkText: string }> = {
+const colorMap: Record<StatColor, { iconBg: string; iconText: string; linkText: string }> = {
   warning: {
-    border: "border-s-warning",
     iconBg: "bg-warning/10",
     iconText: "text-warning",
     linkText: "text-warning hover:text-warning/80",
   },
   primary: {
-    border: "border-s-primary",
     iconBg: "bg-primary/10",
     iconText: "text-primary",
     linkText: "text-primary hover:text-primary/80",
   },
   success: {
-    border: "border-s-success",
     iconBg: "bg-success/10",
     iconText: "text-success",
     linkText: "text-success hover:text-success/80",
   },
   muted: {
-    border: "border-s-border",
     iconBg: "bg-muted",
     iconText: "text-muted-foreground",
     linkText: "text-muted-foreground hover:text-foreground",
@@ -106,20 +103,30 @@ export default async function AdminDashboardPage({
     },
   ];
 
-  return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-semibold">{t("dashboard.title")}</h1>
-        <p className="text-muted-foreground text-sm mt-1">{t("dashboard.subtitle")}</p>
-      </div>
+  const bandStats = stats.slice(0, 3);
+  const gridStats = stats.slice(3);
 
+  return (
+    <div className="-m-6 pb-6">
+      <HeroBand
+        eyebrow={t("nav.dashboard")}
+        title={t("dashboard.title")}
+        subtitle={t("dashboard.subtitle")}
+        kpis={bandStats.map((stat) => ({
+          icon: <stat.Icon className="size-3.5" />,
+          label: stat.label,
+          value: <CountUp value={stat.value} />,
+        }))}
+      />
+
+      <div className="space-y-8 px-6 pt-6">
       <div className="grid gap-4 sm:grid-cols-3">
-        {stats.map((stat) => {
+        {gridStats.map((stat) => {
           const c = colorMap[stat.color];
           return (
             <div
               key={stat.label}
-              className={`bg-card border border-border border-s-4 ${c.border} rounded-lg p-5 flex flex-col gap-3`}
+              className="command-shadow flex flex-col gap-3 rounded-xl border border-border bg-card p-5"
             >
               <div className="flex items-start justify-between">
                 <p className="text-sm text-muted-foreground leading-tight">{stat.label}</p>
@@ -193,6 +200,7 @@ export default async function AdminDashboardPage({
             <ArrowRight className="size-4 text-muted-foreground ms-auto shrink-0 rtl:rotate-180 group-hover:text-primary transition-colors" />
           </Link>
         </div>
+      </div>
       </div>
     </div>
   );
