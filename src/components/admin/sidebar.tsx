@@ -20,11 +20,14 @@ export function AdminSidebar() {
 
   return (
     <aside className="flex flex-col w-64 min-h-screen bg-sidebar border-e border-sidebar-border shrink-0">
-      <div className="flex items-center h-16 px-6 border-b border-sidebar-border" dir="ltr">
-        <Logo variant="horizontal" theme="dark" width={160} />
+      <div className="flex items-center gap-2 h-[68px] px-6" dir="ltr">
+        <Logo variant="horizontal" theme="dark" width={140} />
+        <span className="rounded-md bg-terra px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-terra-foreground">
+          Admin
+        </span>
       </div>
 
-      <nav className="flex-1 px-3 py-4 space-y-0.5">
+      <nav className="flex-1 px-3.5 py-2 space-y-0.5">
         {NAV_ITEMS.map(({ key, href, icon: Icon }) => {
           const isActive =
             href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
@@ -34,13 +37,13 @@ export function AdminSidebar() {
               key={key}
               href={href}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors relative",
+                "flex items-center gap-3 px-3 py-2.5 rounded-[11px] text-sm font-medium transition-colors",
                 isActive
-                  ? "bg-sidebar-primary/10 text-sidebar-primary border-e-2 border-sidebar-primary"
+                  ? "bg-sidebar-primary text-sidebar-primary-foreground"
                   : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               )}
             >
-              <Icon className="size-4 shrink-0" />
+              <Icon className="size-[18px] shrink-0" />
               {t(`nav.${key}`)}
             </Link>
           );

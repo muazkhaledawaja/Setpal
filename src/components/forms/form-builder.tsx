@@ -19,6 +19,7 @@ import {
   Plus, Trash2, GripVertical, ChevronUp, ChevronDown,
 } from "lucide-react";
 import { QuestionEditor } from "./question-editor";
+import { HeroBand } from "@/components/command";
 
 
 interface Question {
@@ -148,7 +149,22 @@ export function FormBuilder({
   const activeQuestion = questions.find(q => q.id === activeQuestionId) ?? null;
 
   return (
-    <div className="flex gap-6 h-[calc(100vh-8rem)]">
+    <div className="-m-6 pb-6">
+      <HeroBand
+        eyebrow={t("title")}
+        title={t("builder.title")}
+        subtitle={t("builder.subtitle")}
+      >
+        <Button
+          onClick={save}
+          disabled={saving || !name.trim()}
+          className="bg-[var(--brand-cream)] text-[var(--brand-teal-deep)] hover:bg-[var(--brand-cream)]/90"
+        >
+          {t("builder.save")}
+        </Button>
+      </HeroBand>
+
+      <div className="flex gap-6 px-6 pt-6 h-[calc(100vh-13rem)]">
       <div className="flex-1 space-y-4 overflow-y-auto pb-8">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
@@ -236,6 +252,7 @@ export function FormBuilder({
           />
         </div>
       )}
+      </div>
     </div>
   );
 }

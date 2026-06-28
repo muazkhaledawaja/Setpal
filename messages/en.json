@@ -264,16 +264,32 @@
       "library": "Library",
       "forms": "Forms",
       "settings": "Settings",
-      "mealPlans": "Meal Plans"
+      "mealPlans": "Meal Plans",
+      "sectionCoaching": "Coaching",
+      "sectionManage": "Manage",
+      "planLabel": "{tier} plan"
     },
     "dashboard": {
       "title": "Dashboard",
-      "subtitle": "Welcome back — here's a snapshot of your workspace."
+      "subtitle": "Welcome back — here's a snapshot of your workspace.",
+      "greetingMorning": "Good morning, {name}.",
+      "greetingAfternoon": "Good afternoon, {name}.",
+      "greetingEvening": "Good evening, {name}.",
+      "standToday": "Here's where your roster stands today.",
+      "needsAttention": "Needs your attention",
+      "todaySessions": "Today's sessions",
+      "roster": "Roster",
+      "viewAll": "View all",
+      "allGood": "You're all caught up — nothing needs attention right now.",
+      "noSessions": "No sessions scheduled for today.",
+      "emptyRoster": "Your active clients will appear here."
     },
     "stats": {
       "activeClients": "Active Clients",
       "pendingCheckIns": "Pending Check-ins",
-      "subscription": "Subscription"
+      "subscription": "Subscription",
+      "checkInsToReview": "Check-ins to review",
+      "avgAdherence": "Avg adherence"
     },
     "subscription": {
       "trial": "Trial — {days} days left",

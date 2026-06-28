@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 interface TopbarProps {
   fullName: string | null;
@@ -79,6 +80,8 @@ export function CoachTopbar({ fullName, avatarUrl, locale }: TopbarProps) {
             )}
           </span>
         </div>
+
+        <ThemeToggle />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

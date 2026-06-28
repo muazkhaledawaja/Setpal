@@ -2,19 +2,19 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { ChevronLeft } from "lucide-react";
 import { Link } from "@/i18n/routing";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { requireRole } from "@/lib/auth/require-role";
 import { createClient } from "@/lib/supabase/server";
 import { ClientsService } from "@/modules/clients/clients.service";
 import { WorkoutsService } from "@/modules/workouts/workouts.service";
 import { MealPlansService } from "@/modules/meal-plans/meal-plans.service";
 import { ChatService } from "@/modules/chat/chat.service";
+import { HeroBand } from "@/components/command";
 import { ClientTabs } from "./client-tabs";
 
-const STATUS_STYLES = {
-  active: "bg-success text-success-foreground",
-  paused: "bg-warning text-warning-foreground",
-  ended: "bg-muted text-muted-foreground",
+const STATUS_PILL = {
+  active: "bg-[rgba(120,200,150,0.22)] text-[#cfeedd]",
+  paused: "bg-[rgba(240,200,120,0.22)] text-[#f3e2c0]",
+  ended: "bg-[rgba(250,243,230,0.16)] text-[rgba(250,243,230,0.75)]",
 } as const;
 
 export default async function ClientDetailPage({
@@ -48,48 +48,42 @@ export default async function ClientDetailPage({
   );
 
   return (
-    <div className="space-y-6">
-      <div>
-        <Link
-          href="/coach/clients"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
-        >
-          <ChevronLeft className="size-4 rtl:rotate-180" />
-          {t("clients.backToClients")}
-        </Link>
-
-        <div className="flex items-center gap-4">
-          <Avatar className="size-14">
-            <AvatarImage src={client.profile?.avatar_url ?? ""} />
-            <AvatarFallback className="bg-primary text-primary-foreground text-lg font-semibold">
-              {initials}
-            </AvatarFallback>
-          </Avatar>
-          <div>
-            <h1 className="text-2xl font-serif font-semibold">
-              {client.profile?.full_name ?? "—"}
-            </h1>
-            <div className="flex items-center gap-3 mt-1">
-              <span className={`inline-flex px-2.5 py-0.5 rounded-md text-xs font-medium ${STATUS_STYLES[client.status]}`}>
-                {t(`clients.status.${client.status}`)}
-              </span>
-              <span className="text-xs text-muted-foreground">
-                {t("clients.detail.joinedOn", { date: joinDate })}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <ClientTabs
-        clientId={id}
-        coachId={coachId}
-        locale={locale}
-        status={client.status}
-        assignedPlans={assignedPlans}
-        assignedMealPlans={assignedMealPlans}
-        chatMessages={chatMessages}
+    <div className="-m-6 pb-6">
+      <HeroBand
+        avatar={initials}
+        title={client.profile?.full_name ?? "—"}
+        topSlot={
+          <Link
+            href="/coach/clients"
+            className="mb-3 inline-flex items-center gap-1.5 text-[12.5px] text-[rgba(250,243,230,0.78)] transition-colors hover:text-[var(--brand-cream)]"
+          >
+            <ChevronLeft className="size-[15px] rtl:rotate-180" />
+            {t("clients.backToClients")}
+          </Link>
+        }
+        subtitle={
+          <span className="flex flex-wrap items-center gap-3">
+            <span
+              className={`inline-flex rounded-md px-2.5 py-0.5 text-[11.5px] font-semibold ${STATUS_PILL[client.status]}`}
+            >
+              {t(`clients.status.${client.status}`)}
+            </span>
+            <span>{t("clients.detail.joinedOn", { date: joinDate })}</span>
+          </span>
+        }
       />
+
+      <div className="px-6 pt-6">
+        <ClientTabs
+          clientId={id}
+          coachId={coachId}
+          locale={locale}
+          status={client.status}
+          assignedPlans={assignedPlans}
+          assignedMealPlans={assignedMealPlans}
+          chatMessages={chatMessages}
+        />
+      </div>
     </div>
   );
 }
